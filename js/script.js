@@ -41,7 +41,7 @@ const Utils = {
     const rect = element.getBoundingClientRect();
     const windowHeight = window.innerHeight || document.documentElement.clientHeight;
     const windowWidth = window.innerWidth || document.documentElement.clientWidth;
-    
+
     return (
       rect.top >= -rect.height * threshold &&
       rect.left >= -rect.width * threshold &&
@@ -81,10 +81,10 @@ class Header {
     this.nav = document.querySelector('.header__nav');
     this.cartCount = document.querySelector('.cart__count');
     this.phoneButton = document.querySelector('.header__phone');
-    
+
     this.isScrolled = false;
     this.scrollThreshold = 100;
-    
+
     this.init();
   }
 
@@ -164,7 +164,7 @@ class Header {
 
   toggleMobileMenu() {
     const isOpen = this.nav.classList.contains('nav--open');
-    
+
     if (isOpen) {
       this.closeMobileMenu();
     } else {
@@ -176,7 +176,7 @@ class Header {
     this.nav.classList.add('nav--open');
     this.mobileToggle.classList.add('mobile-toggle--open');
     document.body.style.overflow = 'hidden';
-    
+
     // Animate menu items
     const navItems = this.nav.querySelectorAll('.nav__item');
     navItems.forEach((item, index) => {
@@ -189,7 +189,7 @@ class Header {
     this.nav.classList.remove('nav--open');
     this.mobileToggle.classList.remove('mobile-toggle--open');
     document.body.style.overflow = '';
-    
+
     const navItems = this.nav.querySelectorAll('.nav__item');
     navItems.forEach(item => {
       item.classList.remove('nav__item--animate');
@@ -199,7 +199,7 @@ class Header {
 
   handlePhoneClick() {
     const phoneNumber = '+7(861)234-56-78';
-    
+
     // For mobile devices, initiate phone call
     if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
       window.location.href = `tel:${phoneNumber}`;
@@ -227,12 +227,12 @@ class Header {
 
   handleNavClick(e) {
     const href = e.target.getAttribute('href');
-    
+
     // Handle anchor links
     if (href && href.startsWith('#')) {
       e.preventDefault();
       const targetElement = document.querySelector(href);
-      
+
       if (targetElement) {
         Utils.smoothScrollTo(targetElement, 80);
         this.closeMobileMenu();
@@ -259,7 +259,7 @@ class Header {
     const notification = document.createElement('div');
     notification.className = `notification notification--${type}`;
     notification.textContent = message;
-    
+
     Object.assign(notification.style, {
       position: 'fixed',
       top: '100px',
@@ -272,7 +272,7 @@ class Header {
       zIndex: '10000',
       transform: 'translateX(100%)',
       transition: 'transform 0.3s ease-in-out',
-      backgroundColor: type === 'success' ? '#22C55E' : 
+      backgroundColor: type === 'success' ? '#22C55E' :
                       type === 'error' ? '#EF4444' : '#3B82F6'
     });
 
@@ -307,7 +307,7 @@ class HeroAnimations {
     this.heroStats = document.querySelector('.hero__stats');
     this.features = document.querySelectorAll('.feature');
     this.scrollIndicator = document.querySelector('.hero__scroll');
-    
+
     this.init();
   }
 
@@ -337,7 +337,7 @@ class HeroAnimations {
     if (this.heroContent) observer.observe(this.heroContent);
     if (this.heroVisual) observer.observe(this.heroVisual);
     if (this.heroStats) observer.observe(this.heroStats);
-    
+
     this.features.forEach(feature => {
       observer.observe(feature);
     });
@@ -345,27 +345,27 @@ class HeroAnimations {
 
   animateStats() {
     const stats = document.querySelectorAll('.stat__number');
-    
+
     const animateNumber = (element, target) => {
       const duration = 2000;
       const start = Date.now();
       const startValue = 0;
-      
+
       const easing = t => t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t;
-      
+
       const animate = () => {
         const elapsed = Date.now() - start;
         const progress = Math.min(elapsed / duration, 1);
         const easedProgress = easing(progress);
-        
+
         const currentValue = Math.floor(startValue + (target - startValue) * easedProgress);
         element.textContent = target >= 1000 ? `${currentValue / 1000}К+` : `${currentValue}+`;
-        
+
         if (progress < 1) {
           requestAnimationFrame(animate);
         }
       };
-      
+
       animate();
     };
 
@@ -389,11 +389,11 @@ class HeroAnimations {
 
   setupParallaxEffect() {
     const parallaxElements = document.querySelectorAll('.hero__image-floating');
-    
+
     const handleParallax = Utils.throttle(() => {
       const scrolled = window.pageYOffset;
       const rate = scrolled * -0.5;
-      
+
       parallaxElements.forEach(element => {
         element.style.transform = `translateY(${rate}px)`;
       });
@@ -423,7 +423,7 @@ class HeroAnimations {
   setupFeatureHovers() {
     this.features.forEach((feature, index) => {
       const icon = feature.querySelector('.feature__icon');
-      
+
       feature.addEventListener('mouseenter', () => {
         // Add hover animation
         icon.style.transform = 'scale(1.1) rotate(5deg)';
@@ -450,9 +450,9 @@ class HeroAnimations {
 
 class InteractiveElements {
   constructor() {
-    this.buttons = document.querySelectorAll('.btn');
+    this.buttons = document.querySelectorAll('.btn:not([type="submit"])');
     this.badges = document.querySelectorAll('.hero__badge, .trust__badge');
-    
+
     this.init();
   }
 
@@ -534,15 +534,15 @@ class InteractiveElements {
       const rect = element.getBoundingClientRect();
       const x = e.clientX - rect.left - rect.width / 2;
       const y = e.clientY - rect.top - rect.height / 2;
-      
+
       const distance = Math.sqrt(x * x + y * y);
       const maxDistance = 50;
-      
+
       if (distance < maxDistance) {
         const strength = (maxDistance - distance) / maxDistance;
         const moveX = (x / distance) * strength * 8;
         const moveY = (y / distance) * strength * 8;
-        
+
         element.style.transform = `translate(${moveX}px, ${moveY}px)`;
       }
     };
@@ -601,7 +601,7 @@ class InteractiveElements {
 
   setupImageInteractions() {
     const images = document.querySelectorAll('.hero__image');
-    
+
     images.forEach(img => {
       img.addEventListener('mouseenter', () => {
         img.style.transform = 'scale(1.05)';
@@ -625,10 +625,10 @@ class InteractiveElements {
   setupFormInteractions() {
     // Future enhancement: form validation and interactions
     const forms = document.querySelectorAll('form');
-    
+
     forms.forEach(form => {
       const inputs = form.querySelectorAll('input, textarea');
-      
+
       inputs.forEach(input => {
         input.addEventListener('focus', () => {
           input.parentElement?.classList.add('focused');
@@ -660,7 +660,7 @@ class PerformanceOptimizer {
 
   lazyLoadImages() {
     const images = document.querySelectorAll('img[data-src]');
-    
+
     if ('IntersectionObserver' in window) {
       const imageObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
@@ -796,7 +796,7 @@ class Analytics {
 
   trackUserEngagement() {
     let startTime = Date.now();
-    
+
     // Track time on page
     window.addEventListener('beforeunload', () => {
       const timeOnPage = Date.now() - startTime;
@@ -826,12 +826,12 @@ class Analytics {
     };
 
     this.events.push(event);
-    
+
     // Send to analytics service (replace with your analytics provider)
     if (window.gtag) {
       window.gtag('event', eventName, data);
     }
-    
+
     // Or send to custom analytics endpoint
     // this.sendToAnalytics(event);
   }
@@ -861,7 +861,7 @@ class StoresMap {
     this.placemarks = {};
     this.stores = [];
     this.activeStore = null;
-    
+
     this.init();
   }
 
@@ -873,7 +873,7 @@ class StoresMap {
       // Retry after a short delay if API not loaded yet
       setTimeout(() => this.init(), 500);
     }
-    
+
     this.setupEventListeners();
     this.setupMobileControls();
   }
@@ -902,7 +902,7 @@ class StoresMap {
 
       // Initialize stores data
       this.initStoresData();
-      
+
       // Create clusterer
       this.clusterer = new ymaps.Clusterer({
         preset: 'islands#greenClusterIcons',
@@ -917,10 +917,10 @@ class StoresMap {
 
       // Create placemarks
       this.createPlacemarks();
-      
+
       // Add clusterer to map
       this.map.geoObjects.add(this.clusterer);
-      
+
       // Set bounds to show all stores
       if (this.clusterer && this.clusterer.getBounds()) {
         this.map.setBounds(this.clusterer.getBounds(), {
@@ -930,7 +930,7 @@ class StoresMap {
       }
 
       console.log('🗺️ Stores map initialized successfully');
-      
+
     } catch (error) {
       console.error('Failed to initialize map:', error);
       this.showMapError('Произошла ошибка при загрузке карты. Попробуйте обновить страницу.');
@@ -951,7 +951,7 @@ class StoresMap {
     // Re-enable behaviors on desktop
     window.addEventListener('resize', () => {
       if (!this.map) return;
-      
+
       if (window.innerWidth <= 768) {
         this.map.behaviors.disable('scrollZoom');
         this.map.behaviors.disable('dblClickZoom');
@@ -1230,22 +1230,22 @@ class StoresMap {
     quickFilterBtns.forEach(btn => {
       btn.addEventListener('click', (e) => {
         e.preventDefault();
-        
+
         // Remove active class from all buttons
         quickFilterBtns.forEach(b => b.classList.remove('active'));
         // Add active class to clicked button
         btn.classList.add('active');
-        
+
         // Apply filter
         this.applyQuickFilter(btn.dataset.filter);
-        
+
         // Close mobile sidebar if open
         if (window.innerWidth <= 768) {
           const sidebar = document.querySelector('.map-section__sidebar');
           const mobileToggle = document.querySelector('.mobile-stores-toggle');
           if (sidebar && sidebar.classList.contains('active')) {
             sidebar.classList.remove('active');
-            
+
             // Update button text
             const toggleText = mobileToggle?.querySelector('.toggle-text');
             if (toggleText) {
@@ -1267,10 +1267,10 @@ class StoresMap {
         mapContainer.classList.add('fullscreen');
         closeFullscreenBtn.style.display = 'flex';
         fullscreenBtn.style.display = 'none';
-        
+
         // Prevent body scroll in fullscreen
         document.body.style.overflow = 'hidden';
-        
+
         // Re-enable all map behaviors in fullscreen
         if (this.map) {
           this.map.behaviors.enable(['drag', 'scrollZoom', 'dblClickZoom', 'multiTouch']);
@@ -1285,10 +1285,10 @@ class StoresMap {
         mapContainer.classList.remove('fullscreen');
         closeFullscreenBtn.style.display = 'none';
         fullscreenBtn.style.display = 'flex';
-        
+
         // Restore body scroll
         document.body.style.overflow = '';
-        
+
         // Restore mobile-friendly behaviors
         if (this.map) {
           if (window.innerWidth <= 768) {
@@ -1369,7 +1369,7 @@ class StoresMap {
           top: rect.top + 20,
           bottom: rect.top + 60
         };
-        
+
         if (e.clientX >= closeButtonArea.left && e.clientX <= closeButtonArea.right &&
             e.clientY >= closeButtonArea.top && e.clientY <= closeButtonArea.bottom) {
           e.preventDefault();
@@ -1388,7 +1388,7 @@ class StoresMap {
           top: rect.top + 20,
           bottom: rect.top + 60
         };
-        
+
         if (touch.clientX >= closeButtonArea.left && touch.clientX <= closeButtonArea.right &&
             touch.clientY >= closeButtonArea.top && touch.clientY <= closeButtonArea.bottom) {
           e.preventDefault();
@@ -1406,9 +1406,9 @@ class StoresMap {
 
       // Close sidebar when clicking outside
       document.addEventListener('click', (e) => {
-        if (window.innerWidth <= 768 && 
-            sidebar.classList.contains('active') && 
-            !sidebar.contains(e.target) && 
+        if (window.innerWidth <= 768 &&
+            sidebar.classList.contains('active') &&
+            !sidebar.contains(e.target) &&
             !mobileToggle.contains(e.target)) {
           this.closeSidebar(sidebar, mobileToggle);
         }
@@ -1416,9 +1416,9 @@ class StoresMap {
 
       // Handle touch events for closing sidebar when touching outside
       document.addEventListener('touchstart', (e) => {
-        if (window.innerWidth <= 768 && 
-            sidebar.classList.contains('active') && 
-            !sidebar.contains(e.target) && 
+        if (window.innerWidth <= 768 &&
+            sidebar.classList.contains('active') &&
+            !sidebar.contains(e.target) &&
             !mobileToggle.contains(e.target)) {
           this.closeSidebar(sidebar, mobileToggle);
         }
@@ -1457,7 +1457,7 @@ class StoresMap {
   // Helper method to toggle sidebar
   toggleSidebar(sidebar, mobileToggle) {
     sidebar.classList.toggle('active');
-    
+
     // Prevent body scroll when sidebar is open
     if (sidebar.classList.contains('active')) {
       document.body.style.overflow = 'hidden';
@@ -1474,12 +1474,12 @@ class StoresMap {
         this.map.behaviors.enable('scrollZoom');
       }
     }
-    
+
     // Update button text
     const toggleText = mobileToggle.querySelector('.toggle-text');
     if (toggleText) {
-      toggleText.textContent = sidebar.classList.contains('active') 
-        ? 'Скрыть список магазинов' 
+      toggleText.textContent = sidebar.classList.contains('active')
+        ? 'Скрыть список магазинов'
         : 'Показать список магазинов';
     }
   }
@@ -1488,13 +1488,13 @@ class StoresMap {
   closeSidebar(sidebar, mobileToggle) {
     sidebar.classList.remove('active');
     document.body.style.overflow = '';
-    
+
     // Re-enable map touch events
     if (this.map) {
       this.map.behaviors.enable('drag');
       this.map.behaviors.enable('scrollZoom');
     }
-    
+
     // Update button text
     const toggleText = mobileToggle.querySelector('.toggle-text');
     if (toggleText) {
@@ -1538,7 +1538,7 @@ class StoresMap {
     if (detailsSheet && nameEl && addressEl && tagsEl) {
       nameEl.textContent = store.name;
       addressEl.textContent = store.address;
-      
+
       tagsEl.innerHTML = '';
       store.tags.forEach(tag => {
         const tagEl = document.createElement('span');
@@ -1579,7 +1579,7 @@ class StoresMap {
     // Update checkboxes based on quick filter
     const typeCheckboxes = document.querySelectorAll('input[value="branded"], input[value="partner"]');
     const locationCheckboxes = document.querySelectorAll('input[id^="location-"]');
-    
+
     if (filter === 'all') {
       // Check all checkboxes
       typeCheckboxes.forEach(cb => cb.checked = true);
@@ -1607,7 +1607,7 @@ class StoresMap {
     storeItems.forEach(item => {
       const type = item.dataset.type;
       const location = item.dataset.location;
-      
+
       const showItem = typeFilters.includes(type) && locationFilters.includes(location);
       item.style.display = showItem ? 'block' : 'none';
     });
@@ -1615,7 +1615,7 @@ class StoresMap {
     // Filter map placemarks
     if (this.clusterer) {
       this.clusterer.removeAll();
-      
+
       this.stores.forEach(store => {
         const showStore = typeFilters.includes(store.type) && locationFilters.includes(store.location);
         if (showStore && this.placemarks[store.id]) {
@@ -1649,7 +1649,7 @@ class DairyFarmApp {
   constructor() {
     this.components = {};
     this.isInitialized = false;
-    
+
     this.init();
   }
 
@@ -1672,16 +1672,16 @@ class DairyFarmApp {
       this.components.interactiveElements = new InteractiveElements();
       this.components.performanceOptimizer = new PerformanceOptimizer();
       this.components.analytics = new Analytics();
-      
+
       // Initialize map if map section exists
       if (document.getElementById('stores-map')) {
         this.components.storesMap = new StoresMap();
       }
 
       this.isInitialized = true;
-      
+
       console.log('🥛 Dairy Farm website initialized successfully!');
-      
+
       // Dispatch custom event for other scripts
       window.dispatchEvent(new CustomEvent('dairyFarmReady', {
         detail: { components: this.components }
@@ -1732,37 +1732,37 @@ class MobileNavigation {
         this.mobileNavClose = document.getElementById('mobile-nav-close');
         this.mobileNavOverlay = document.getElementById('mobile-nav-overlay');
         this.mobileNavLinks = document.querySelectorAll('.mobile-nav__link');
-        
+
         this.init();
     }
-    
+
     init() {
         if (this.mobileToggle) {
             this.mobileToggle.addEventListener('click', () => this.openMenu());
         }
-        
+
         if (this.mobileNavClose) {
             this.mobileNavClose.addEventListener('click', () => this.closeMenu());
         }
-        
+
         if (this.mobileNavOverlay) {
             this.mobileNavOverlay.addEventListener('click', () => this.closeMenu());
         }
-        
+
         // Close menu when clicking on links
         this.mobileNavLinks.forEach(link => {
             link.addEventListener('click', () => {
                 setTimeout(() => this.closeMenu(), 300);
             });
         });
-        
+
         // Close menu on escape key
         document.addEventListener('keydown', (e) => {
             if (e.key === 'Escape' && this.mobileNav.classList.contains('active')) {
                 this.closeMenu();
             }
         });
-        
+
         // Handle window resize
         window.addEventListener('resize', () => {
             if (window.innerWidth > 768 && this.mobileNav.classList.contains('active')) {
@@ -1770,22 +1770,22 @@ class MobileNavigation {
             }
         });
     }
-    
+
     openMenu() {
         this.mobileNav.classList.add('active');
         document.body.style.overflow = 'hidden';
-        
+
         // Focus trap
         const firstFocusable = this.mobileNav.querySelector('button, a');
         if (firstFocusable) {
             firstFocusable.focus();
         }
     }
-    
+
     closeMenu() {
         this.mobileNav.classList.remove('active');
         document.body.style.overflow = '';
-        
+
         // Return focus to toggle button
         if (this.mobileToggle) {
             this.mobileToggle.focus();
@@ -1798,25 +1798,25 @@ class SmoothScroll {
     constructor() {
         this.init();
     }
-    
+
     init() {
         // Handle all navigation links
         const navLinks = document.querySelectorAll('a[href^="#"]');
-        
+
         navLinks.forEach(link => {
             link.addEventListener('click', (e) => {
                 const href = link.getAttribute('href');
-                
+
                 // Skip if it's just "#"
                 if (href === '#') return;
-                
+
                 const target = document.querySelector(href);
                 if (target) {
                     e.preventDefault();
-                    
+
                     const headerHeight = document.querySelector('.header').offsetHeight;
                     const targetPosition = target.offsetTop - headerHeight - 20;
-                    
+
                     window.scrollTo({
                         top: targetPosition,
                         behavior: 'smooth'
