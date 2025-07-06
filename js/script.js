@@ -381,7 +381,7 @@ class HeroAnimations {
     }, { threshold: 0.5 });
 
     stats.forEach((stat, index) => {
-      const targets = [25, 300, 15000]; // Years, Cows, Clients
+      const targets = [25, 800, 15000]; // Years, Cows, Clients
       stat.setAttribute('data-target', targets[index]);
       statsObserver.observe(stat);
     });
