@@ -1,4 +1,3 @@
-
 // Яндекс Карты для магазинов
 ymaps.ready(initStoresMap);
 
@@ -203,7 +202,7 @@ function initStoresMap() {
 
     // Создаем кластеризатор
     const clusterer = new ymaps.Clusterer({
-        preset: 'islands#greenClusterIcons',
+        preset: 'islands#redClusterIcons',
         clusterDisableClickZoom: false,
         clusterOpenBalloonOnClick: true,
         clusterBalloonContentLayout: 'cluster#balloonCarousel',
@@ -218,7 +217,7 @@ function initStoresMap() {
 
     // Функция для создания метки магазина
     function createPlacemark(store) {
-        const iconColor = store.type === 'branded' ? '#7FB77E' : '#A4907C';
+        const iconColor = store.type === 'branded' ? '#E90101' : '#FF3333';
         const iconContent = store.type === 'branded' ? 'Ф' : 'П';
 
         const placemark = new ymaps.Placemark(

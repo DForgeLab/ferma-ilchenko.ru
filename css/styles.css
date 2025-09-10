@@ -1,32 +1,33 @@
 /* ==============================================
    MODERN DAIRY FARM DESIGN SYSTEM v2.0
-   Based on contemporary sustainable agriculture trends
+   Based on authentic farm product colors
    ============================================== */
 
 /* CSS Custom Properties - Design Tokens */
 :root {
-  /* Primary Color Palette - Natural & Trustworthy */
-  --color-primary: #2E7D2E;          /* Deep Forest Green */
-  --color-primary-light: #4A9B4A;    /* Fresh Meadow Green */
-  --color-primary-dark: #1A5A1A;     /* Dark Pine Green */
-  --color-green-light: #E8F2E8;
+  /* Primary Color Palette - Farm Fresh Red */
+  --color-primary: #E90101;          /* Fresh Farm Red (от крышек) */
+  --color-primary-light: #FF3333;    /* Light Farm Red */
+  --color-primary-dark: #CC0000;     /* Dark Farm Red */
+  --color-primary-darker: #880000;     /* Darker Farm Red */
+  --color-primary-darkest: #440000;     /* Darkest Farm Red */
 
-  /* Secondary Colors - Warm & Inviting */
-  --color-secondary: #D4A853;        /* Golden Wheat */
-  --color-secondary-light: #E6C477;  /* Light Honey */
-  --color-accent: #E85A4F;           /* Warm Clay */
+  /* Secondary Colors - Dairy Products */
+  --color-secondary: #D3AFAF;        /* Yogurt Pink (цвет йогурта) */
+  --color-secondary-light: #E6C4C4;  /* Light Yogurt Pink */
+  --color-accent: #E4DEC6;           /* Cheese Cream (цвет сыра) */
 
-  /* Neutral Palette - Clean & Modern */
+  /* Neutral Palette - Dairy Fresh */
   --color-neutral-50: #FEFFFE;       /* Pure White */
-  --color-neutral-100: #F8FAF8;      /* Off White */
-  --color-neutral-200: #E8F2E8;      /* Light Green Tint */
-  --color-neutral-300: #D1E5D1;      /* Soft Green */
-  --color-neutral-400: #9BB39B;      /* Sage Green */
-  --color-neutral-500: #6B876B;      /* Medium Green Grey */
-  --color-neutral-600: #4A634A;      /* Dark Green Grey */
-  --color-neutral-700: #2D3F2D;      /* Charcoal Green */
-  --color-neutral-800: #1A251A;      /* Almost Black */
-  --color-neutral-900: #0D120D;      /* Deep Black */
+  --color-neutral-100: #DADBCB;      /* Fresh Milk (цвет молока) */
+  --color-neutral-200: #D8D3C0;      /* Creamy Yogurt (кремовый йогурт) */
+  --color-neutral-300: #E4DEC6;      /* Light Cheese */
+  --color-neutral-400: #C8B8A8;      /* Medium Dairy */
+  --color-neutral-500: #A89888;      /* Dark Dairy */
+  --color-neutral-600: #887868;      /* Warm Grey */
+  --color-neutral-700: #685848;      /* Dark Warm Grey */
+  --color-neutral-800: #483828;      /* Deep Brown */
+  --color-neutral-900: #2D1D0D;      /* Almost Black */
 
   /* Status Colors */
   --color-success: #22C55E;
@@ -185,6 +186,7 @@ ul, ol {
   width: 40px;
   height: 40px;
   flex-shrink: 0;
+  color: var(--color-primary);
 }
 
 .header__logo-text {
@@ -280,8 +282,6 @@ ul, ol {
   font-weight: var(--font-weight-medium);
 }
 
-
-
 /* Mobile Toggle */
 .header__mobile-toggle {
   display: none;
@@ -369,12 +369,18 @@ ul, ol {
 .mobile-nav__logo-icon {
   width: 40px;
   height: 40px;
-  background: linear-gradient(135deg, var(--color-primary), #4A9B4A);
+  background: linear-gradient(135deg, var(--color-primary), #FF3333);
   border-radius: var(--radius-lg);
   display: flex;
   align-items: center;
   justify-content: center;
-  color: white;
+  color: var(--color-primary);
+}
+
+.header__logo-icon svg,
+.mobile-nav__logo-icon svg {
+  color: var(--color-primary);
+  fill: var(--color-primary);
 }
 
 .mobile-nav__logo-icon svg {
@@ -524,7 +530,7 @@ ul, ol {
   display: flex;
   align-items: center;
   overflow: hidden;
-  background: linear-gradient(135deg, var(--color-neutral-100) 0%, var(--color-neutral-200) 100%);
+  background: linear-gradient(135deg, var(--color-neutral-50) 0%, var(--color-neutral-100) 100%);
 }
 
 .hero__background {

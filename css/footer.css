@@ -3,7 +3,7 @@
    ============================================== */
 
 .footer {
-    background: linear-gradient(135deg, #1a4d1a 0%, #2E7D2E 50%, #1a4d1a 100%);
+    background: linear-gradient(135deg, var(--color-primary-darkest) 0%, var(--color-primary-dark) 50%, var(--color-primary-darkest) 100%);
     color: white;
     position: relative;
     overflow: hidden;
@@ -16,9 +16,9 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background: 
-        radial-gradient(circle at 20% 20%, rgba(212, 168, 83, 0.1) 0%, transparent 50%),
-        radial-gradient(circle at 80% 80%, rgba(46, 125, 46, 0.1) 0%, transparent 50%);
+    background:
+        radial-gradient(circle at 20% 20%, rgba(233, 1, 1, 0.08) 0%, transparent 50%),
+        radial-gradient(circle at 80% 80%, rgba(255, 51, 51, 0.08) 0%, transparent 50%);
     pointer-events: none;
 }
 
@@ -316,7 +316,7 @@
         grid-template-columns: 1fr 1fr;
         gap: 32px;
     }
-    
+
     .footer__company {
         grid-column: 1 / -1;
     }
@@ -328,38 +328,38 @@
         gap: 32px;
         padding: 48px 20px;
     }
-    
+
     .footer__company {
         text-align: center;
         grid-column: 1;
         order: 1;
     }
-    
+
     .footer__contact {
         order: 2;
     }
-    
+
     .footer__links {
         order: 3;
     }
-    
+
     .footer__products {
         order: 4;
     }
-    
+
     .footer__logo {
         justify-content: center;
     }
-    
+
     .footer__social {
         justify-content: center;
     }
-    
+
     .footer__bottom-content {
         flex-direction: column;
         text-align: center;
     }
-    
+
     .footer__legal {
         flex-direction: column;
         gap: 16px;
@@ -371,36 +371,36 @@
         padding: 32px 16px;
         gap: 28px;
     }
-    
+
     .footer__bottom {
         padding: 20px 16px;
     }
-    
+
     .footer__logo {
         flex-direction: column;
         gap: 12px;
     }
-    
+
     .footer__logo-text {
         text-align: center;
     }
-    
+
     .footer__title {
         font-size: 18px;
         margin-bottom: 16px;
         text-align: left;
     }
-    
+
     .footer__contact,
     .footer__links,
     .footer__products {
         text-align: left;
     }
-    
+
     .footer__nav {
         text-align: left;
     }
-    
+
     .footer__contact-item {
         flex-direction: row;
         text-align: left;
@@ -408,26 +408,26 @@
         align-items: flex-start;
         margin-bottom: 16px;
     }
-    
+
     .footer__contact-item:last-child {
         margin-bottom: 0;
     }
-    
+
     .footer__contact-icon {
         align-self: flex-start;
         margin-top: 2px;
     }
-    
+
     .footer__contact-text {
         flex: 1;
         text-align: left;
     }
-    
+
     .footer__contact-label {
         font-size: 13px;
         margin-bottom: 2px;
     }
-    
+
     .footer__contact-link {
         font-size: 15px;
         line-height: 1.4;
@@ -440,7 +440,7 @@
         background: #000000;
         border-top: 2px solid #ffffff;
     }
-    
+
     .footer__logo-icon,
     .footer__social-link,
     .footer__contact-icon {
@@ -461,11 +461,11 @@
         animation: none;
         transition: none;
     }
-    
+
     .footer__logo-icon:hover,
     .footer__social-link:hover,
     .footer__nav-link:hover,
     .footer__contact-item:hover .footer__contact-icon {
         transform: none;
     }
-} 
+}
