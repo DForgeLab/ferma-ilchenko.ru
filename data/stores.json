@@ -1,0 +1,238 @@
+{
+  "stores": [
+    {
+      "id": "store1",
+      "name": "Ярмарка - место 17, 18",
+      "address": "Ярмарка Московская 160 А, место 17,18",
+      "coordinates": [
+        45.092509,
+        39.002534
+      ],
+      "type": "partner",
+      "location": "krasnodar",
+      "locationName": "г. Краснодар",
+      "image": "img/stores/store1.jpg"
+    },
+    {
+      "id": "store2",
+      "name": "Краснодар - Комарова",
+      "address": "г. Краснодар, ул. В.М. Комарова 21а",
+      "coordinates": [
+        45.116274,
+        39.031628
+      ],
+      "type": "partner",
+      "location": "krasnodar",
+      "locationName": "г. Краснодар",
+      "image": "img/stores/store2.jpg"
+    },
+    {
+      "id": "store3",
+      "name": "Краснодар - Красносельское",
+      "address": "г. Краснодар, с. Красносельское, мкр. Центральный 1",
+      "coordinates": [
+        45.287637,
+        39.155704
+      ],
+      "type": "partner",
+      "location": "krasnodar",
+      "locationName": "г. Краснодар",
+      "image": "img/stores/store3.jpg"
+    },
+    {
+      "id": "store4",
+      "name": "Деликатес - Губернский",
+      "address": "г. Краснодар, мкр. Губернский, ул. Героя Яцкова, 15/1 — магазин «Деликатес»",
+      "coordinates": [
+        45.070767,
+        39.039152
+      ],
+      "type": "partner",
+      "location": "krasnodar",
+      "locationName": "г. Краснодар",
+      "image": "img/stores/store4.jpg"
+    },
+    {
+      "id": "store5",
+      "name": "Краснодар - Гаражная",
+      "address": "г. Краснодар, ул. Гаражная, 71/1",
+      "coordinates": [
+        45.055499,
+        38.969618
+      ],
+      "type": "partner",
+      "location": "krasnodar",
+      "locationName": "г. Краснодар",
+      "image": "img/stores/store5.jpg"
+    },
+    {
+      "id": "store6",
+      "name": "Сосед - 40 лет Победы",
+      "address": "г. Краснодар, ул. 40 лет Победы, 125 — магазин «Сосед»",
+      "coordinates": [
+        45.056393,
+        39.031575
+      ],
+      "type": "partner",
+      "location": "krasnodar",
+      "locationName": "г. Краснодар",
+      "image": "img/stores/store6.jpg"
+    },
+    {
+      "id": "store7",
+      "name": "Южный - Смоленская",
+      "address": "п. Южный, ул. Смоленская, 51",
+      "coordinates": [
+        45.150559,
+        39.016465
+      ],
+      "type": "partner",
+      "location": "other",
+      "locationName": "п. Южный",
+      "image": "img/stores/store7.jpg"
+    },
+    {
+      "id": "store8",
+      "name": "Березовый - Малигонова",
+      "address": "п. Березовый, ул. Малигонова, 35",
+      "coordinates": [
+        45.153654,
+        38.969061
+      ],
+      "type": "partner",
+      "location": "other",
+      "locationName": "п. Березовый",
+      "image": "img/stores/store8.jpg"
+    },
+    {
+      "id": "store9",
+      "name": "Мясной оптовик",
+      "address": "Магазин «Мясной оптовик», ул. Тургеневское шоссе, 31",
+      "coordinates": [
+        45.008744,
+        38.932356
+      ],
+      "type": "partner",
+      "location": "krasnodar",
+      "locationName": "г. Краснодар",
+      "image": "img/stores/store9.jpg"
+    },
+    {
+      "id": "store10",
+      "name": "Новотитаровская - Тельмана",
+      "address": "ст. Новотитаровская, ул. Тельмана 2/1А",
+      "coordinates": [
+        45.231667,
+        38.984099
+      ],
+      "type": "partner",
+      "location": "novotitarovskaya",
+      "locationName": "ст. Новотитаровская",
+      "image": "img/stores/store10.jpg"
+    },
+    {
+      "id": "store11",
+      "name": "Краснодар - Репина, Лавка Мясника",
+      "address": "Проезд Репина, 5 — магазин «Лавка Мясника»",
+      "coordinates": [
+        45.075158,
+        38.976427
+      ],
+      "type": "partner",
+      "location": "krasnodar",
+      "locationName": "г. Краснодар",
+      "image": "img/stores/store11.jpg"
+    },
+    {
+      "id": "store-b1",
+      "name": "Новотитаровская - Тельмана",
+      "address": "ст. Новотитаровская, ул. Тельмана 2/1А",
+      "coordinates": [
+        45.231667,
+        38.984099
+      ],
+      "type": "branded",
+      "location": "novotitarovskaya",
+      "locationName": "ст. Новотитаровская",
+      "image": "img/stores/store-b1.jpg"
+    },
+    {
+      "id": "store-b2",
+      "name": "Новотитаровская - Широкая",
+      "address": "ст. Новотитаровская, ул. Широкая 58",
+      "coordinates": [
+        45.243181,
+        38.998517
+      ],
+      "type": "branded",
+      "location": "novotitarovskaya",
+      "locationName": "ст. Новотитаровская",
+      "image": "img/stores/store-b2.jpg"
+    },
+    {
+      "id": "store-b3",
+      "name": "Новотитаровская - Ленина",
+      "address": "ст. Новотитаровская, ул. Ленина 223",
+      "coordinates": [
+        45.234955,
+        38.963931
+      ],
+      "type": "branded",
+      "location": "novotitarovskaya",
+      "locationName": "ст. Новотитаровская",
+      "image": "img/stores/store-b3.jpg"
+    },
+    {
+      "id": "store-b4",
+      "name": "Нововеличковская - Луначарского",
+      "address": "ст. Нововеличковская, ул. Луначарского 15",
+      "coordinates": [
+        45.27714231169194,
+        38.840191606834125
+      ],
+      "type": "branded",
+      "location": "novovelichkovskaya",
+      "locationName": "ст. Нововеличковская",
+      "image": "img/stores/store-b4.jpg"
+    },
+    {
+      "id": "store-b5",
+      "name": "Динская - Кирпичная",
+      "address": "ст. Динская, ул. Кирпичная 73/1",
+      "coordinates": [
+        45.212330,
+        39.225090
+      ],
+      "type": "branded",
+      "location": "dinskaya",
+      "locationName": "ст. Динская",
+      "image": "img/stores/store-b5.jpg"
+    },
+    {
+      "id": "store-b6",
+      "name": "Динская - Ужгородская",
+      "address": "ст. Динская, ул. Ужгородская 16",
+      "coordinates": [
+        45.241518,
+        39.229348
+      ],
+      "type": "branded",
+      "location": "dinskaya",
+      "locationName": "ст. Динская",
+      "image": "img/stores/store-b6.jpg"
+    },
+    {
+      "id": "store-b7",
+      "name": "Динская - Тельмана",
+      "address": "ст. Динская, ул. Тельмана 147а",
+      "coordinates": [
+        45.19380669280848,
+        39.245731376358236
+      ],
+      "type": "branded",
+      "location": "dinskaya",
+      "locationName": "ст. Динская",
+      "image": "img/stores/store-b7.jpg"
+    }
+  ]
+}

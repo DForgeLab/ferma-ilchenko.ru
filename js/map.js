@@ -1,7 +1,50 @@
 // Яндекс Карты для магазинов
 ymaps.ready(initStoresMap);
 
-function initStoresMap() {
+let stores = []; // Глобальная переменная для хранения данных магазинов
+
+// Загружаем данные магазинов из JSON файла
+async function loadStoresData() {
+    try {
+        const response = await fetch('data/stores.json');
+        const data = await response.json();
+        return data.stores;
+    } catch (error) {
+        console.error('Ошибка загрузки данных магазинов:', error);
+        return [];
+    }
+}
+
+// Функции для управления скелетонами
+function showSkeletons() {
+    const storesContainer = document.querySelector('.stores-container');
+    if (storesContainer) {
+        storesContainer.classList.add('skeleton-container');
+        storesContainer.classList.remove('stores-loaded');
+    }
+}
+
+function hideSkeletons() {
+    const storesContainer = document.querySelector('.stores-container');
+    if (storesContainer) {
+        storesContainer.classList.remove('skeleton-container');
+        storesContainer.classList.add('stores-loaded');
+    }
+}
+
+async function initStoresMap() {
+    // Показываем скелетоны
+    showSkeletons();
+
+    // Загружаем данные магазинов
+    stores = await loadStoresData();
+
+    if (stores.length === 0) {
+        console.error('Не удалось загрузить данные магазинов');
+        hideSkeletons();
+        return;
+    }
+
     // Создаем карту
     const storesMap = new ymaps.Map('stores-map', {
         center: [45.2, 38.95], // Примерный центр между всеми магазинами
@@ -9,196 +52,7 @@ function initStoresMap() {
         controls: ['zoomControl', 'geolocationControl']
     });
 
-    // Данные о магазинах
-    const stores = [
-        // Фирменные магазины
-        {
-            id: 'store1',
-            name: 'Новотитаровская - Центр',
-            address: 'ст. Новотитаровская, ул. Ленина, д.226 (центр)',
-            coordinates: [45.260865, 38.979930],
-            type: 'branded',
-            location: 'novotitarovskaya'
-        },
-        {
-            id: 'store2',
-            name: 'Новотитаровская - Балочка',
-            address: 'ст. Новотитаровская, ул. Ленина, д.114/1 (балочка)',
-            coordinates: [45.259954, 38.965703],
-            type: 'branded',
-            location: 'novotitarovskaya'
-        },
-        {
-            id: 'store3',
-            name: 'Новотитаровская - Школа №35',
-            address: 'ст. Новотитаровская, ул. Широкая, д.89 (напротив МОУ СОШ №35)',
-            coordinates: [45.254869, 38.972440],
-            type: 'branded',
-            location: 'novotitarovskaya'
-        },
-        {
-            id: 'store4',
-            name: 'Новотитаровская - Магнит',
-            address: 'ст. Новотитаровская, ул. Широкая, д.58 (напротив магазина "Магнит")',
-            coordinates: [45.253458, 38.973084],
-            type: 'branded',
-            location: 'novotitarovskaya'
-        },
-        {
-            id: 'store5',
-            name: 'Новотитаровская - Тельмана',
-            address: 'ст. Новотитаровская, ул. Тельмана (пересечение с ул. Сельская)',
-            coordinates: [45.257365, 38.977129],
-            type: 'branded',
-            location: 'novotitarovskaya'
-        },
-        {
-            id: 'store6',
-            name: 'Динская - Поликлиника',
-            address: 'ст. Динская, ул. Кирпичная, д.73/1 (поликлиника)',
-            coordinates: [45.217373, 39.223033],
-            type: 'branded',
-            location: 'dinskaya'
-        },
-        {
-            id: 'store7',
-            name: 'Нововеличковская',
-            address: 'ст. Нововеличковская, ул. Луначарского, 15',
-            coordinates: [45.122910, 38.829510],
-            type: 'branded',
-            location: 'novovelichkovskaya'
-        },
-
-        // Партнерские магазины
-        {
-            id: 'store8',
-            name: 'Статус - Красная',
-            address: 'ст. Динская, ул. Красная 94',
-            coordinates: [45.211672, 39.236210],
-            type: 'partner',
-            location: 'dinskaya'
-        },
-        {
-            id: 'store9',
-            name: 'Статус - Пролетарская',
-            address: 'ст. Динская, ул. Пролетарская 40',
-            coordinates: [45.214632, 39.231310],
-            type: 'partner',
-            location: 'dinskaya'
-        },
-        {
-            id: 'store10',
-            name: 'Минимаркет "Вкусноежка"',
-            address: 'п. Северный, ул. Пригородная, д.105',
-            coordinates: [45.276090, 39.016810],
-            type: 'partner',
-            location: 'other'
-        },
-        {
-            id: 'store11',
-            name: 'Молоко',
-            address: 'п. Прогресс, ул. Мечникова, д.3 (503)',
-            coordinates: [45.285780, 38.965750],
-            type: 'partner',
-            location: 'other'
-        },
-        {
-            id: 'store12',
-            name: 'Лавка Петровича - Южный',
-            address: 'п. Южный, ул. Смоленская, д.51',
-            coordinates: [45.084380, 38.972190],
-            type: 'partner',
-            location: 'other'
-        },
-        {
-            id: 'store13',
-            name: 'Ботаника - Клары Лучко',
-            address: 'г. Краснодар, ул. Клары Лучко, д.10',
-            coordinates: [45.058690, 38.950210],
-            type: 'partner',
-            location: 'krasnodar'
-        },
-        {
-            id: 'store14',
-            name: 'Ботаника - Яна Полуяна',
-            address: 'г. Краснодар, ул. Яна Полуяна, д.47/2',
-            coordinates: [45.062430, 38.953360],
-            type: 'partner',
-            location: 'krasnodar'
-        },
-        {
-            id: 'store15',
-            name: 'Ботаника - ТЦ Красная площадь',
-            address: 'г. Краснодар, ТЦ Красная площадь 1 этаж',
-            coordinates: [45.088410, 38.979080],
-            type: 'partner',
-            location: 'krasnodar'
-        },
-        {
-            id: 'store16',
-            name: 'Ботаника - Монтажников',
-            address: 'г. Краснодар, ул. Монтажников, д.3Б',
-            coordinates: [45.044860, 39.010050],
-            type: 'partner',
-            location: 'krasnodar'
-        },
-        {
-            id: 'store17',
-            name: 'Фермерский дворик (Агромаг)',
-            address: 'г. Краснодар, ул. Красная, д.176/5 Корпус№9 (ТЦ "Центр города" вход с ул. Коммунарова)',
-            coordinates: [45.036600, 38.974830],
-            type: 'partner',
-            location: 'krasnodar'
-        },
-        {
-            id: 'store18',
-            name: 'Продукты - Кореновская',
-            address: 'г. Краснодар, ул. Кореновская, д.65',
-            coordinates: [45.058050, 39.005350],
-            type: 'partner',
-            location: 'krasnodar'
-        },
-        {
-            id: 'store19',
-            name: 'Фермерские продукты - Думенко',
-            address: 'г. Краснодар, ул. Думенко, д.13 место 23',
-            coordinates: [45.032980, 38.945680],
-            type: 'partner',
-            location: 'krasnodar'
-        },
-        {
-            id: 'store20',
-            name: 'Деревенские продукты',
-            address: 'г. Краснодар, ул. Кореновская, д.1',
-            coordinates: [45.067260, 39.005970],
-            type: 'partner',
-            location: 'krasnodar'
-        },
-        {
-            id: 'store21',
-            name: 'Фермерские продукты - Березовый',
-            address: 'г. Краснодар, п. Березовый, 1/5',
-            coordinates: [45.156010, 38.926990],
-            type: 'partner',
-            location: 'krasnodar'
-        },
-        {
-            id: 'store22',
-            name: 'Катран',
-            address: 'г. Краснодар, ул. Пригородная, 29',
-            coordinates: [45.042810, 38.915440],
-            type: 'partner',
-            location: 'krasnodar'
-        },
-        {
-            id: 'store23',
-            name: 'Лавка Петровича - Покрышкина',
-            address: 'г. Краснодар, ул. Покрышкина, 4/10',
-            coordinates: [45.052320, 38.937420],
-            type: 'partner',
-            location: 'krasnodar'
-        }
-    ];
+    // Данные о магазинах теперь загружаются из JSON файла
 
     // Создаем кластеризатор
     const clusterer = new ymaps.Clusterer({
@@ -220,25 +74,52 @@ function initStoresMap() {
         const iconColor = store.type === 'branded' ? '#E90101' : '#FF3333';
         const iconContent = store.type === 'branded' ? 'Ф' : 'П';
 
+        // Создаем содержимое балуна с изображением
+        let balloonContent = `
+            <div class="map-balloon">
+                <div class="balloon-content">
+                    <h3 class="balloon-title">${store.name}</h3>
+        `;
+
+        // Добавляем изображение с типом поверх него, если оно есть
+        if (store.image) {
+            balloonContent += `
+                    <div class="balloon-image" data-store-id="${store.id}">
+                        <img src="${store.image}" alt="${store.name}" data-store-id="${store.id}">
+                        <div class="balloon-type-overlay">${store.type === 'branded' ? 'Фирменный' : 'Партнерский'}</div>
+                    </div>
+            `;
+        }
+
+        balloonContent += `
+                    <p class="balloon-address">${store.address}</p>
+                </div>
+            </div>
+        `;
+
         const placemark = new ymaps.Placemark(
             store.coordinates,
             {
                 hintContent: store.name,
-                balloonContentHeader: store.name,
-                balloonContentBody: `
-                    <div class="map-balloon">
-                        <p>${store.address}</p>
-                        <p><strong>Тип:</strong> ${store.type === 'branded' ? 'Фирменный' : 'Партнерский'}</p>
-                    </div>
-                `,
+                balloonContentBody: balloonContent,
                 storeId: store.id
             },
             {
                 preset: 'islands#circleIcon',
                 iconColor: iconColor,
-                iconContent: iconContent
+                iconContent: iconContent,
+                draggable: false,
             }
         );
+
+        // Обработчик перемещения маркера
+        placemark.events.add('dragend', function() {
+            const coords = placemark.geometry.getCoordinates();
+            console.log(`Новые координаты для "${store.name}" (ID: ${store.id}):`);
+            console.log(`Координаты: [${coords[0]}, ${coords[1]}]`);
+            console.log(`JSON формат: "coordinates": [${coords[0]}, ${coords[1]}]`);
+            console.log('---');
+        });
 
         // Обработчик клика для отображения деталей на мобильном
         placemark.events.add('click', function(e) {
@@ -251,6 +132,106 @@ function initStoresMap() {
 
         return placemark;
     }
+
+    // Функция для генерации списка магазинов
+    function generateStoresList() {
+        const storesListContainer = document.getElementById('stores-list');
+        if (!storesListContainer) return;
+
+        // Группируем магазины по типу
+        const brandedStores = stores.filter(store => store.type === 'branded');
+        const partnerStores = stores.filter(store => store.type === 'partner');
+
+        let html = '';
+
+        // Генерируем фирменные магазины
+        if (brandedStores.length > 0) {
+            html += `
+                <div class="store-category" id="branded-stores">
+                    <h3 class="store-category-title">Фирменные магазины</h3>
+            `;
+
+            brandedStores.forEach(store => {
+                html += `
+                    <div class="store-item" data-id="${store.id}" data-type="${store.type}" data-location="${store.location}">
+                        <div class="store-name">${store.name}</div>
+                        <div class="store-address">${store.address}</div>
+                        <div class="store-tags">
+                            <span class="store-tag">Фирменный</span>
+                            <span class="store-tag">${store.locationName || ''}</span>
+                        </div>
+                    </div>
+                `;
+            });
+
+            html += '</div>';
+        }
+
+        // Генерируем партнерские магазины
+        if (partnerStores.length > 0) {
+            html += `
+                <div class="store-category" id="partner-stores">
+                    <h3 class="store-category-title">Партнерские магазины</h3>
+            `;
+
+            partnerStores.forEach(store => {
+                html += `
+                    <div class="store-item" data-id="${store.id}" data-type="${store.type}" data-location="${store.location}">
+                        <div class="store-name">${store.name}</div>
+                        <div class="store-address">${store.address}</div>
+                        <div class="store-tags">
+                            <span class="store-tag">Партнерский</span>
+                            <span class="store-tag">${store.locationName || ''}</span>
+                        </div>
+                    </div>
+                `;
+            });
+
+            html += '</div>';
+        }
+
+        storesListContainer.innerHTML = html;
+    }
+
+    // Функция для генерации фильтров по локациям
+    function generateLocationFilters() {
+        const locationFiltersContainer = document.getElementById('location-filters');
+        if (!locationFiltersContainer) return;
+
+        // Получаем уникальные локации из данных магазинов
+        const locationMap = new Map();
+
+        stores.forEach(store => {
+            if (!locationMap.has(store.location)) {
+                locationMap.set(store.location, {
+                    key: store.location,
+                    name: store.locationName || store.location
+                });
+            }
+        });
+
+        const uniqueLocations = Array.from(locationMap.values());
+
+        let html = '';
+
+        uniqueLocations.forEach(location => {
+            const locationId = `location-${location.key}`;
+            html += `
+                <div class="filter-option">
+                    <input type="checkbox" id="${locationId}" value="${location.key}" checked>
+                    <label for="${locationId}">${location.name}</label>
+                </div>
+            `;
+        });
+
+        locationFiltersContainer.innerHTML = html;
+    }
+
+    // Генерируем список магазинов в HTML
+    generateStoresList();
+
+    // Генерируем фильтры по локациям
+    generateLocationFilters();
 
     // Создаем метки для всех магазинов и добавляем их в кластеризатор
     stores.forEach(store => {
@@ -275,12 +256,10 @@ function initStoresMap() {
         zoomMargin: 30
     });
 
-    // Получаем все элементы списка магазинов
-    const storeItems = document.querySelectorAll('.store-item');
-
     // Функция для активации элемента магазина
     function activateStoreItem(storeId) {
         // Снимаем активное состояние со всех элементов
+        const storeItems = document.querySelectorAll('.store-item');
         storeItems.forEach(item => {
             item.classList.remove('active');
         });
@@ -302,27 +281,35 @@ function initStoresMap() {
         }
     }
 
-    // Добавляем обработчики клика по элементам списка
-    storeItems.forEach(item => {
-        item.addEventListener('click', function() {
-            const storeId = this.dataset.id;
-            activateStoreItem(storeId);
+    // Функция для добавления обработчиков событий к элементам списка
+    function addStoreItemEventListeners() {
+        const storeItems = document.querySelectorAll('.store-item');
 
-            // На мобильных показываем детали магазина
-            if (window.innerWidth <= 768) {
-                const store = stores.find(s => s.id === storeId);
-                if (store) {
-                    showStoreDetails(store);
+        storeItems.forEach(item => {
+            item.addEventListener('click', function() {
+                const storeId = this.dataset.id;
+                activateStoreItem(storeId);
+
+                // На мобильных показываем детали магазина
+                if (window.innerWidth <= 768) {
+                    const store = stores.find(s => s.id === storeId);
+                    if (store) {
+                        showStoreDetails(store);
+                    }
                 }
-            }
+            });
         });
-    });
+    }
+
+    // Добавляем обработчики после генерации списка
+    addStoreItemEventListeners();
 
     // Фильтрация магазинов
-    const typeCheckboxes = document.querySelectorAll('.filter-option input[type="checkbox"][id^="type-"]');
-    const locationCheckboxes = document.querySelectorAll('.filter-option input[type="checkbox"][id^="location-"]');
-
     function filterStores() {
+        // Получаем элементы фильтров динамически
+        const typeCheckboxes = document.querySelectorAll('.filter-option input[type="checkbox"][id^="type-"]');
+        const locationCheckboxes = document.querySelectorAll('.filter-option input[type="checkbox"][id^="location-"]');
+
         // Получаем выбранные типы магазинов и локации
         const selectedTypes = Array.from(typeCheckboxes)
             .filter(cb => cb.checked)
@@ -331,6 +318,9 @@ function initStoresMap() {
         const selectedLocations = Array.from(locationCheckboxes)
             .filter(cb => cb.checked)
             .map(cb => cb.value);
+
+        // Получаем все элементы списка магазинов (динамически)
+        const storeItems = document.querySelectorAll('.store-item');
 
         // Фильтруем элементы списка
         storeItems.forEach(item => {
@@ -374,14 +364,23 @@ function initStoresMap() {
         }
     }
 
-    // Добавляем обработчики изменения фильтров
-    typeCheckboxes.forEach(checkbox => {
-        checkbox.addEventListener('change', filterStores);
-    });
+    // Функция для добавления обработчиков событий к фильтрам
+    function addFilterEventListeners() {
+        const typeCheckboxes = document.querySelectorAll('.filter-option input[type="checkbox"][id^="type-"]');
+        const locationCheckboxes = document.querySelectorAll('.filter-option input[type="checkbox"][id^="location-"]');
 
-    locationCheckboxes.forEach(checkbox => {
-        checkbox.addEventListener('change', filterStores);
-    });
+        // Добавляем обработчики изменения фильтров
+        typeCheckboxes.forEach(checkbox => {
+            checkbox.addEventListener('change', filterStores);
+        });
+
+        locationCheckboxes.forEach(checkbox => {
+            checkbox.addEventListener('change', filterStores);
+        });
+    }
+
+    // Добавляем обработчики после генерации фильтров
+    addFilterEventListeners();
 
     // Мобильное отображение фильтров и списка
     const mobileStoresToggle = document.querySelector('.mobile-stores-toggle');
@@ -401,41 +400,56 @@ function initStoresMap() {
     }
 
     // Быстрые фильтры для мобильных
-    const quickFilterBtns = document.querySelectorAll('.quick-filter-btn');
+    function addQuickFilterEventListeners() {
+        const quickFilterBtns = document.querySelectorAll('.quick-filter-btn');
 
-    quickFilterBtns.forEach(btn => {
-        btn.addEventListener('click', () => {
-            // Сбрасываем активное состояние всех кнопок
-            quickFilterBtns.forEach(b => b.classList.remove('active'));
-            btn.classList.add('active');
+        quickFilterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                // Сбрасываем активное состояние всех кнопок
+                quickFilterBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
 
-            const filter = btn.dataset.filter;
+                const filter = btn.dataset.filter;
 
-            // Применяем фильтр
-            if (filter === 'all') {
-                // Активируем все чекбоксы
-                typeCheckboxes.forEach(cb => { cb.checked = true; });
-                locationCheckboxes.forEach(cb => { cb.checked = true; });
-            } else if (filter === 'branded' || filter === 'partner') {
-                // Активируем только выбранный тип
-                typeCheckboxes.forEach(cb => {
-                    cb.checked = (cb.value === filter);
-                });
-                // Активируем все локации
-                locationCheckboxes.forEach(cb => { cb.checked = true; });
-            } else {
-                // Активируем все типы
-                typeCheckboxes.forEach(cb => { cb.checked = true; });
-                // Активируем только выбранную локацию
-                locationCheckboxes.forEach(cb => {
-                    cb.checked = (cb.value === filter);
-                });
-            }
+                // Получаем элементы фильтров динамически
+                const typeCheckboxes = document.querySelectorAll('.filter-option input[type="checkbox"][id^="type-"]');
+                const locationCheckboxes = document.querySelectorAll('.filter-option input[type="checkbox"][id^="location-"]');
 
-            // Применяем фильтры
-            filterStores();
+                // Применяем фильтр
+                if (filter === 'all') {
+                    // Активируем все чекбоксы
+                    typeCheckboxes.forEach(cb => { cb.checked = true; });
+                    locationCheckboxes.forEach(cb => { cb.checked = true; });
+                } else if (filter === 'branded' || filter === 'partner') {
+                    // Активируем только выбранный тип
+                    typeCheckboxes.forEach(cb => {
+                        cb.checked = (cb.value === filter);
+                    });
+                    // Активируем все локации
+                    locationCheckboxes.forEach(cb => { cb.checked = true; });
+                } else {
+                    // Активируем все типы
+                    typeCheckboxes.forEach(cb => { cb.checked = true; });
+                    // Активируем только выбранную локацию
+                    locationCheckboxes.forEach(cb => {
+                        cb.checked = (cb.value === filter);
+                    });
+                }
+
+                // Применяем фильтры
+                filterStores();
+            });
         });
-    });
+    }
+
+    // Добавляем обработчики быстрых фильтров
+    addQuickFilterEventListeners();
+
+    // Скрываем скелетоны после полной загрузки
+    hideSkeletons();
+
+    // Инициализируем попап для изображений
+    initImagePopup();
 
     // Полноэкранный режим карты
     const mapContainer = document.querySelector('.map-container');
@@ -625,4 +639,58 @@ function initStoresMap() {
             }
         }, {passive: true});
     }
+}
+
+// Функции для работы с попапом изображений
+function initImagePopup() {
+    const popup = document.getElementById('image-popup');
+    const closeBtn = document.querySelector('.image-popup-close');
+    const overlay = document.querySelector('.image-popup-overlay');
+
+    // Обработчик клика по изображению в балуне
+    document.addEventListener('click', function(e) {
+        if (e.target.matches('.balloon-image img') || e.target.matches('.balloon-image')) {
+            e.preventDefault();
+            const storeId = e.target.getAttribute('data-store-id');
+            if (storeId) {
+                openImagePopup(storeId);
+            }
+        }
+    });
+
+    // Закрытие попапа
+    function closePopup() {
+        popup.classList.remove('show');
+        document.body.style.overflow = '';
+    }
+
+    closeBtn.addEventListener('click', closePopup);
+    overlay.addEventListener('click', closePopup);
+
+    // Закрытие по Escape
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && popup.classList.contains('show')) {
+            closePopup();
+        }
+    });
+}
+
+function openImagePopup(storeId) {
+    const store = stores.find(s => s.id === storeId);
+    if (!store || !store.image) return;
+
+    const popup = document.getElementById('image-popup');
+    const popupImage = document.getElementById('popup-image');
+    const popupTitle = document.getElementById('popup-title');
+    const popupAddress = document.getElementById('popup-address');
+
+    // Заполняем данные
+    popupImage.src = store.image;
+    popupImage.alt = store.name;
+    popupTitle.textContent = store.name;
+    popupAddress.textContent = store.address;
+
+    // Показываем попап
+    popup.classList.add('show');
+    document.body.style.overflow = 'hidden';
 }

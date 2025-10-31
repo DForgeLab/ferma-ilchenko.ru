@@ -597,207 +597,58 @@
                             </div>
                             <div class="filter-group">
                                 <h3>Населенный пункт</h3>
-                                <div class="filter-options">
-                                    <div class="filter-option">
-                                        <input type="checkbox" id="location-novotitarovskaya" value="novotitarovskaya" checked>
-                                        <label for="location-novotitarovskaya">ст. Новотитаровская</label>
-                                    </div>
-                                    <div class="filter-option">
-                                        <input type="checkbox" id="location-dinskaya" value="dinskaya" checked>
-                                        <label for="location-dinskaya">ст. Динская</label>
-                                    </div>
-                                    <div class="filter-option">
-                                        <input type="checkbox" id="location-novovelichkovskaya" value="novovelichkovskaya" checked>
-                                        <label for="location-novovelichkovskaya">ст. Нововеличковская</label>
-                                    </div>
-                                    <div class="filter-option">
-                                        <input type="checkbox" id="location-krasnodar" value="krasnodar" checked>
-                                        <label for="location-krasnodar">г. Краснодар</label>
-                                    </div>
-                                    <div class="filter-option">
-                                        <input type="checkbox" id="location-other" value="other" checked>
-                                        <label for="location-other">Другие</label>
-                                    </div>
+                                <div class="filter-options location-filters" id="location-filters">
+                                    <!-- Фильтры по локациям будут сгенерированы динамически -->
+                                </div>
+
+                                <!-- Скелетоны для фильтров локаций -->
+                                <div class="skeleton-location-filters">
+                                    <div class="skeleton-text skeleton" style="height: 20px; width: 120px; margin-bottom: 8px;"></div>
+                                    <div class="skeleton-text skeleton" style="height: 20px; width: 100px; margin-bottom: 8px;"></div>
+                                    <div class="skeleton-text skeleton" style="height: 20px; width: 140px; margin-bottom: 8px;"></div>
+                                    <div class="skeleton-text skeleton" style="height: 20px; width: 90px; margin-bottom: 8px;"></div>
                                 </div>
                             </div>
                         </div>
-                        <div class="stores-list">
-                            <div class="store-category" id="branded-stores">
-                                <h3 class="store-category-title">Фирменные магазины</h3>
-                                <div class="store-item" data-id="store1" data-type="branded" data-location="novotitarovskaya">
-                                    <div class="store-name">Новотитаровская - Центр</div>
-                                    <div class="store-address">ст. Новотитаровская, ул. Ленина, д.226 (центр)</div>
-                                    <div class="store-tags">
-                                        <span class="store-tag">Фирменный</span>
-                                        <span class="store-tag">Полный ассортимент</span>
-                                    </div>
-                                </div>
-                                <div class="store-item" data-id="store2" data-type="branded" data-location="novotitarovskaya">
-                                    <div class="store-name">Новотитаровская - Балочка</div>
-                                    <div class="store-address">ст. Новотитаровская, ул. Ленина, д.114/1 (балочка)</div>
-                                    <div class="store-tags">
-                                        <span class="store-tag">Фирменный</span>
-                                        <span class="store-tag">Полный ассортимент</span>
-                                    </div>
-                                </div>
-                                <div class="store-item" data-id="store3" data-type="branded" data-location="novotitarovskaya">
-                                    <div class="store-name">Новотитаровская - Школа №35</div>
-                                    <div class="store-address">ст. Новотитаровская, ул. Широкая, д.89 (напротив МОУ СОШ №35)</div>
-                                    <div class="store-tags">
-                                        <span class="store-tag">Фирменный</span>
-                                    </div>
-                                </div>
-                                <div class="store-item" data-id="store4" data-type="branded" data-location="novotitarovskaya">
-                                    <div class="store-name">Новотитаровская - Магнит</div>
-                                    <div class="store-address">ст. Новотитаровская, ул. Широкая, д.58 (напротив магазина "Магнит")</div>
-                                    <div class="store-tags">
-                                        <span class="store-tag">Фирменный</span>
-                                    </div>
-                                </div>
-                                <div class="store-item" data-id="store5" data-type="branded" data-location="novotitarovskaya">
-                                    <div class="store-name">Новотитаровская - Тельмана</div>
-                                    <div class="store-address">ст. Новотитаровская, ул. Тельмана (пересечение с ул. Сельская)</div>
-                                    <div class="store-tags">
-                                        <span class="store-tag">Фирменный</span>
-                                    </div>
-                                </div>
-                                <div class="store-item" data-id="store6" data-type="branded" data-location="dinskaya">
-                                    <div class="store-name">Динская - Поликлиника</div>
-                                    <div class="store-address">ст. Динская, ул. Кирпичная, д.73/1 (поликлиника)</div>
-                                    <div class="store-tags">
-                                        <span class="store-tag">Фирменный</span>
-                                    </div>
-                                </div>
-                                <div class="store-item" data-id="store7" data-type="branded" data-location="novovelichkovskaya">
-                                    <div class="store-name">Нововеличковская</div>
-                                    <div class="store-address">ст. Нововеличковская, ул. Луначарского, 15</div>
-                                    <div class="store-tags">
-                                        <span class="store-tag">Фирменный</span>
-                                    </div>
-                                </div>
+                        <div class="stores-list" id="stores-list">
+                            <!-- Список магазинов будет сгенерирован динамически из JSON -->
+                        </div>
+
+                        <!-- Скелетоны для списка магазинов -->
+                        <div class="skeleton-stores-list">
+                            <div class="skeleton-category-title skeleton"></div>
+                            <div class="skeleton-store-item">
+                                <div class="skeleton-text skeleton-text--title skeleton"></div>
+                                <div class="skeleton-text skeleton-text--address skeleton"></div>
+                                <div class="skeleton-text skeleton-text--tag skeleton"></div>
+                                <div class="skeleton-text skeleton-text--tag skeleton"></div>
                             </div>
-                            <div class="store-category" id="partner-stores">
-                                <h3 class="store-category-title">Партнерские магазины</h3>
-                                <div class="store-item" data-id="store8" data-type="partner" data-location="dinskaya">
-                                    <div class="store-name">Статус - Красная</div>
-                                    <div class="store-address">ст. Динская, ул. Красная 94</div>
-                                    <div class="store-tags">
-                                        <span class="store-tag">Партнерский</span>
-                                        <span class="store-tag">Молоко</span>
-                                        <span class="store-tag">Сыры</span>
-                                    </div>
-                                </div>
-                                <div class="store-item" data-id="store9" data-type="partner" data-location="dinskaya">
-                                    <div class="store-name">Статус - Пролетарская</div>
-                                    <div class="store-address">ст. Динская, ул. Пролетарская 40</div>
-                                    <div class="store-tags">
-                                        <span class="store-tag">Партнерский</span>
-                                        <span class="store-tag">Молоко</span>
-                                    </div>
-                                </div>
-                                <div class="store-item" data-id="store10" data-type="partner" data-location="other">
-                                    <div class="store-name">Минимаркет "Вкусноежка"</div>
-                                    <div class="store-address">п. Северный, ул. Пригородная, д.105</div>
-                                    <div class="store-tags">
-                                        <span class="store-tag">Партнерский</span>
-                                    </div>
-                                </div>
-                                <div class="store-item" data-id="store11" data-type="partner" data-location="other">
-                                    <div class="store-name">Молоко</div>
-                                    <div class="store-address">п. Прогресс, ул. Мечникова, д.3 (503)</div>
-                                    <div class="store-tags">
-                                        <span class="store-tag">Партнерский</span>
-                                    </div>
-                                </div>
-                                <div class="store-item" data-id="store12" data-type="partner" data-location="other">
-                                    <div class="store-name">Лавка Петровича - Южный</div>
-                                    <div class="store-address">п. Южный, ул. Смоленская, д.51</div>
-                                    <div class="store-tags">
-                                        <span class="store-tag">Партнерский</span>
-                                    </div>
-                                </div>
-                                <div class="store-item" data-id="store13" data-type="partner" data-location="krasnodar">
-                                    <div class="store-name">Ботаника - Клары Лучко</div>
-                                    <div class="store-address">г. Краснодар, ул. Клары Лучко, д.10</div>
-                                    <div class="store-tags">
-                                        <span class="store-tag">Партнерский</span>
-                                    </div>
-                                </div>
-                                <div class="store-item" data-id="store14" data-type="partner" data-location="krasnodar">
-                                    <div class="store-name">Ботаника - Яна Полуяна</div>
-                                    <div class="store-address">г. Краснодар, ул. Яна Полуяна, д.47/2</div>
-                                    <div class="store-tags">
-                                        <span class="store-tag">Партнерский</span>
-                                    </div>
-                                </div>
-                                <div class="store-item" data-id="store15" data-type="partner" data-location="krasnodar">
-                                    <div class="store-name">Ботаника - ТЦ Красная площадь</div>
-                                    <div class="store-address">г. Краснодар, ТЦ Красная площадь 1 этаж</div>
-                                    <div class="store-tags">
-                                        <span class="store-tag">Партнерский</span>
-                                    </div>
-                                </div>
-                                <div class="store-item" data-id="store16" data-type="partner" data-location="krasnodar">
-                                    <div class="store-name">Ботаника - Монтажников</div>
-                                    <div class="store-address">г. Краснодар, ул. Монтажников, д.3Б</div>
-                                    <div class="store-tags">
-                                        <span class="store-tag">Партнерский</span>
-                                    </div>
-                                </div>
-                                <div class="store-item" data-id="store17" data-type="partner" data-location="krasnodar">
-                                    <div class="store-name">Фермерский дворик (Агромаг)</div>
-                                    <div class="store-address">г. Краснодар, ул. Красная, д.176/5 Корпус№9 (ТЦ "Центр города" вход с ул. Коммунарова)</div>
-                                    <div class="store-tags">
-                                        <span class="store-tag">Партнерский</span>
-                                    </div>
-                                </div>
-                                <div class="store-item" data-id="store18" data-type="partner" data-location="krasnodar">
-                                    <div class="store-name">Продукты - Кореновская</div>
-                                    <div class="store-address">г. Краснодар, ул. Кореновская, д.65</div>
-                                    <div class="store-tags">
-                                        <span class="store-tag">Партнерский</span>
-                                    </div>
-                                </div>
-                                <div class="store-item" data-id="store19" data-type="partner" data-location="krasnodar">
-                                    <div class="store-name">Фермерские продукты - Думенко</div>
-                                    <div class="store-address">г. Краснодар, ул. Думенко, д.13 место 23</div>
-                                    <div class="store-tags">
-                                        <span class="store-tag">Партнерский</span>
-                                    </div>
-                                </div>
-                                <div class="store-item" data-id="store20" data-type="partner" data-location="krasnodar">
-                                    <div class="store-name">Деревенские продукты</div>
-                                    <div class="store-address">г. Краснодар, ул. Кореновская, д.1</div>
-                                    <div class="store-tags">
-                                        <span class="store-tag">Партнерский</span>
-                                    </div>
-                                </div>
-                                <div class="store-item" data-id="store21" data-type="partner" data-location="krasnodar">
-                                    <div class="store-name">Фермерские продукты - Березовый</div>
-                                    <div class="store-address">г. Краснодар, п. Березовый, 1/5</div>
-                                    <div class="store-tags">
-                                        <span class="store-tag">Партнерский</span>
-                                    </div>
-                                </div>
-                                <div class="store-item" data-id="store22" data-type="partner" data-location="krasnodar">
-                                    <div class="store-name">Катран</div>
-                                    <div class="store-address">г. Краснодар, ул. Пригородная, 29</div>
-                                    <div class="store-tags">
-                                        <span class="store-tag">Партнерский</span>
-                                    </div>
-                                </div>
-                                <div class="store-item" data-id="store23" data-type="partner" data-location="krasnodar">
-                                    <div class="store-name">Лавка Петровича - Покрышкина</div>
-                                    <div class="store-address">г. Краснодар, ул. Покрышкина, 4/10</div>
-                                    <div class="store-tags">
-                                        <span class="store-tag">Партнерский</span>
-                                    </div>
-                                </div>
+                            <div class="skeleton-store-item">
+                                <div class="skeleton-text skeleton-text--title skeleton"></div>
+                                <div class="skeleton-text skeleton-text--address skeleton"></div>
+                                <div class="skeleton-text skeleton-text--tag skeleton"></div>
+                                <div class="skeleton-text skeleton-text--tag skeleton"></div>
+                            </div>
+                            <div class="skeleton-category-title skeleton"></div>
+                            <div class="skeleton-store-item">
+                                <div class="skeleton-text skeleton-text--title skeleton"></div>
+                                <div class="skeleton-text skeleton-text--address skeleton"></div>
+                                <div class="skeleton-text skeleton-text--tag skeleton"></div>
+                                <div class="skeleton-text skeleton-text--tag skeleton"></div>
+                            </div>
+                            <div class="skeleton-store-item">
+                                <div class="skeleton-text skeleton-text--title skeleton"></div>
+                                <div class="skeleton-text skeleton-text--address skeleton"></div>
+                                <div class="skeleton-text skeleton-text--tag skeleton"></div>
+                                <div class="skeleton-text skeleton-text--tag skeleton"></div>
                             </div>
                         </div>
                     </div>
                     <div class="map-container">
                         <div id="stores-map" class="stores-map"></div>
+                        <div class="skeleton-map">
+                            Загрузка карты...
+                        </div>
                         <button class="map-fullscreen-toggle" id="map-fullscreen">
                             <span>⛶</span>
                         </button>
@@ -999,6 +850,20 @@
                 </div>
             </div>
         </footer>
+
+        <!-- Попап для просмотра изображений -->
+        <div id="image-popup" class="image-popup">
+            <div class="image-popup-overlay"></div>
+            <div class="image-popup-content">
+                <button class="image-popup-close">&times;</button>
+                <img id="popup-image" src="" alt="">
+                <div class="image-popup-info">
+                    <h3 id="popup-title"></h3>
+                    <p id="popup-address"></p>
+                </div>
+            </div>
+        </div>
+
         <script src="https://api-maps.yandex.ru/2.1/?apikey=YOUR_API_KEY&lang=ru_RU" type="text/javascript"></script>
         <script src="js/map.js"></script>
         <script src="js/script.js"></script>
