@@ -5,16 +5,16 @@
 
 /* CSS Custom Properties - Design Tokens */
 :root {
-  /* Primary Color Palette - Farm Fresh Red */
-  --color-primary: #E90101;          /* Fresh Farm Red (от крышек) */
-  --color-primary-light: #FF3333;    /* Light Farm Red */
-  --color-primary-dark: #CC0000;     /* Dark Farm Red */
-  --color-primary-darker: #880000;     /* Darker Farm Red */
-  --color-primary-darkest: #440000;     /* Darkest Farm Red */
+  /* Primary Color Palette - Farm Fresh Green */
+  --color-primary: #2E7D32;          /* Fresh Farm Green (от крышек) */
+  --color-primary-light: #4CAF50;    /* Light Farm Green */
+  --color-primary-dark: #1B5E20;     /* Dark Farm Green */
+  --color-primary-darker: #0D3C10;     /* Darker Farm Green */
+  --color-primary-darkest: #052E0A;     /* Darkest Farm Green */
 
   /* Secondary Colors - Dairy Products */
-  --color-secondary: #D3AFAF;        /* Yogurt Pink (цвет йогурта) */
-  --color-secondary-light: #E6C4C4;  /* Light Yogurt Pink */
+  --color-secondary: #81C784;        /* Fresh Grass Green (цвет свежей травы) */
+  --color-secondary-light: #A5D6A7;  /* Light Grass Green */
   --color-accent: #E4DEC6;           /* Cheese Cream (цвет сыра) */
 
   /* Neutral Palette - Dairy Fresh */
@@ -37,7 +37,7 @@
 
   /* Typography Scale */
   --font-family-primary: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  --font-family-display: 'Playfair Display', Georgia, serif;
+  --font-family-display: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 
   --font-size-xs: 0.75rem;       /* 12px */
   --font-size-sm: 0.875rem;      /* 14px */
@@ -180,6 +180,8 @@ ul, ol {
   display: flex;
   align-items: center;
   gap: var(--spacing-md);
+  text-decoration: none;
+  color: inherit;
 }
 
 .header__logo-icon {
@@ -369,7 +371,7 @@ ul, ol {
 .mobile-nav__logo-icon {
   width: 40px;
   height: 40px;
-  background: linear-gradient(135deg, var(--color-primary), #FF3333);
+  background: linear-gradient(135deg, var(--color-primary), #4CAF50);
   border-radius: var(--radius-lg);
   display: flex;
   align-items: center;
@@ -794,7 +796,7 @@ ul, ol {
   position: relative;
   aspect-ratio: 4/3;
   border-radius: var(--radius-2xl);
-  overflow: hidden;
+  /* overflow: hidden; */
   max-width: 500px;
   margin: 0 auto;
   box-shadow: var(--shadow-2xl);
@@ -805,6 +807,7 @@ ul, ol {
   height: 100%;
   position: relative;
   overflow: hidden;
+  border-radius: var(--radius-xl);
 }
 
 .hero__image-main .hero__image {

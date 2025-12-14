@@ -62,7 +62,7 @@
 
 .privacy-policy__subtitle {
   font-size: var(--font-size-lg);
-  color: var(--color-accent);
+  color: var(--color-error);
   line-height: var(--line-height-relaxed);
   max-width: 700px;
   margin: 0 auto;

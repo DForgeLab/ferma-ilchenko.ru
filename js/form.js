@@ -89,7 +89,7 @@ document.addEventListener('DOMContentLoaded', function () {
             }, 5000);
 
             // === Отправка ===
-            fetch('php/send.php', {
+            fetch('php/send-email.php', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'

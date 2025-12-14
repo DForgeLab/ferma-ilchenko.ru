@@ -28,7 +28,7 @@
         <!-- Header -->
         <header class="header" id="header">
             <div class="header__container">
-                <div class="header__logo">
+                <a href="index.html" class="header__logo">
                     <svg class="header__logo-icon" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <circle cx="20" cy="20" r="18" fill="#2E7D2E" stroke="#4A9B4A" stroke-width="2" />
                         <path d="M12 20 C12 14, 16 10, 20 10 C24 10, 28 14, 28 20 C28 26, 24 30, 20 30 C16 30, 12 26, 12 20 Z" fill="white" />
@@ -39,7 +39,7 @@
                         <div class="header__brand">Молочные Фермы Ильченко</div>
                         <div class="header__tagline">с 1998 года</div>
                     </div>
-                </div>
+                </a>
                 <nav class="header__nav">
                     <ul class="nav__list">
                         <li class="nav__item"><a href="#s-hero" class="nav__link">Главная</a></li>
@@ -174,7 +174,8 @@
                             </div>
                         </div>
                     </div>
-                    <div class="hero__actions">
+                    <!-- Кнопки временно скрыты - разделы не реализованы -->
+                    <!-- <div class="hero__actions">
                         <a class="btn btn--primary" href="#s-products">
                             <span>Продукция</span>
                             <svg class="btn__icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -187,7 +188,7 @@
                             </svg>
                             <span>Видео о ферме</span>
                         </a>
-                    </div>
+                    </div> -->
                 </div>
                 <div class="hero__visual">
                     <div class="hero__image-container">
@@ -576,33 +577,18 @@
                 <div class="stores-mobile-controls">
                     <div class="stores-quick-filter">
                         <button class="quick-filter-btn active" data-filter="all">Все магазины</button>
-                        <button class="quick-filter-btn" data-filter="branded">Фирменные</button>
-                        <button class="quick-filter-btn" data-filter="partner">Партнерские</button>
                         <button class="quick-filter-btn" data-filter="novotitarovskaya">ст. Новотитаровская</button>
                         <button class="quick-filter-btn" data-filter="dinskaya">ст. Динская</button>
                         <button class="quick-filter-btn" data-filter="krasnodar">г. Краснодар</button>
                     </div>
                     <button class="mobile-stores-toggle">
-                        <span class="toggle-icon">📋</span>
+                        <span class="toggle-icon"></span>
                         <span class="toggle-text">Показать список магазинов</span>
                     </button>
                 </div>
                 <div class="stores-container">
                     <div class="stores-sidebar">
                         <div class="stores-filter">
-                            <div class="filter-group">
-                                <h3>Тип магазина</h3>
-                                <div class="filter-options">
-                                    <div class="filter-option">
-                                        <input type="checkbox" id="type-branded" value="branded" checked>
-                                        <label for="type-branded">Фирменные</label>
-                                    </div>
-                                    <div class="filter-option">
-                                        <input type="checkbox" id="type-partner" value="partner" checked>
-                                        <label for="type-partner">Партнерские</label>
-                                    </div>
-                                </div>
-                            </div>
                             <div class="filter-group">
                                 <h3>Населенный пункт</h3>
                                 <div class="filter-options location-filters" id="location-filters">
@@ -677,9 +663,9 @@
                         </div>
                         <div class="store-details-actions">
                             <button class="store-action-btn store-action-directions" id="get-directions">
-                                <span>🗺️</span> Маршрут </button>
+                                <span>→</span> Маршрут </button>
                             <button class="store-action-btn store-action-call" id="call-store">
-                                <span>📞</span> Позвонить </button>
+                                <span>☎</span> Позвонить </button>
                         </div>
                     </div>
                 </div>
@@ -770,28 +756,14 @@
                             </a>
                         </div>
                     </div>
-                    <!-- Quick Links -->
+                    <!-- Navigation -->
                     <div class="footer__links">
-                        <h3 class="footer__title">Быстрые ссылки</h3>
+                        <h3 class="footer__title">Навигация</h3>
                         <ul class="footer__nav">
                             <li><a href="#s-hero" class="footer__nav-link">Главная</a></li>
-                            <li><a href="#s-trust" class="footer__nav-link">Качество</a></li>
-                            <li><a href="#s-products" class="footer__nav-link">Продукция</a></li>
-                            <li><a href="#s-about" class="footer__nav-link">Наша история</a></li>
                             <li><a href="#stores" class="footer__nav-link">Наши магазины</a></li>
+                            <li><a href="#s-contact" class="footer__nav-link">Связаться с нами</a></li>
                             <li><a href="#footer" class="footer__nav-link">Контакты</a></li>
-                        </ul>
-                    </div>
-                    <!-- Products -->
-                    <div class="footer__products">
-                        <h3 class="footer__title">Наша продукция</h3>
-                        <ul class="footer__nav">
-                            <li><a href="#s-products" class="footer__nav-link">Молоко</a></li>
-                            <li><a href="#s-products" class="footer__nav-link">Сыры</a></li>
-                            <li><a href="#s-products" class="footer__nav-link">Творог</a></li>
-                            <li><a href="#s-products" class="footer__nav-link">Йогурты</a></li>
-                            <li><a href="#s-products" class="footer__nav-link">Кисломолочные продукты</a></li>
-                            <li><a href="#s-products" class="footer__nav-link">Масло сливочное</a></li>
                         </ul>
                     </div>
                     <!-- Contact Info -->
@@ -853,8 +825,8 @@
                             <p>&copy; 2024 Молочные Фермы Ильченко. Все права защищены.</p>
                         </div>
                         <div class="footer__legal">
-                            <a href="#" class="footer__legal-link">Политика конфиденциальности</a>
-                            <a href="#" class="footer__legal-link">Пользовательское соглашение</a>
+                            <a href="privacy-policy.html" class="footer__legal-link">Политика конфиденциальности</a>
+                            <a href="terms-of-service.html" class="footer__legal-link">Пользовательское соглашение</a>
                         </div>
                     </div>
                 </div>

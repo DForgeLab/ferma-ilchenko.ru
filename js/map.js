@@ -56,7 +56,7 @@ async function initStoresMap() {
 
     // Создаем кластеризатор
     const clusterer = new ymaps.Clusterer({
-        preset: 'islands#redClusterIcons',
+        preset: 'islands#greenClusterIcons',
         clusterDisableClickZoom: false,
         clusterOpenBalloonOnClick: true,
         clusterBalloonContentLayout: 'cluster#balloonCarousel',
@@ -71,7 +71,7 @@ async function initStoresMap() {
 
     // Функция для создания метки магазина
     function createPlacemark(store) {
-        const iconColor = store.type === 'branded' ? '#E90101' : '#FF3333';
+        const iconColor = '#2E7D32'; // Зеленый цвет для всех маркеров
         const iconContent = store.type === 'branded' ? 'Ф' : 'П';
 
         // Создаем содержимое балуна с изображением
@@ -140,7 +140,7 @@ async function initStoresMap() {
 
         // Группируем магазины по типу
         const brandedStores = stores.filter(store => store.type === 'branded');
-        const partnerStores = stores.filter(store => store.type === 'partner');
+        // const partnerStores = stores.filter(store => store.type === 'partner'); // Временно отключено
 
         let html = '';
 
@@ -148,7 +148,6 @@ async function initStoresMap() {
         if (brandedStores.length > 0) {
             html += `
                 <div class="store-category" id="branded-stores">
-                    <h3 class="store-category-title">Фирменные магазины</h3>
             `;
 
             brandedStores.forEach(store => {
@@ -156,10 +155,6 @@ async function initStoresMap() {
                     <div class="store-item" data-id="${store.id}" data-type="${store.type}" data-location="${store.location}">
                         <div class="store-name">${store.name}</div>
                         <div class="store-address">${store.address}</div>
-                        <div class="store-tags">
-                            <span class="store-tag">Фирменный</span>
-                            <span class="store-tag">${store.locationName || ''}</span>
-                        </div>
                     </div>
                 `;
             });
@@ -167,7 +162,8 @@ async function initStoresMap() {
             html += '</div>';
         }
 
-        // Генерируем партнерские магазины
+        // Генерируем партнерские магазины - временно отключено
+        /*
         if (partnerStores.length > 0) {
             html += `
                 <div class="store-category" id="partner-stores">
@@ -189,6 +185,7 @@ async function initStoresMap() {
 
             html += '</div>';
         }
+        */
 
         storesListContainer.innerHTML = html;
     }
@@ -233,8 +230,8 @@ async function initStoresMap() {
     // Генерируем фильтры по локациям
     generateLocationFilters();
 
-    // Создаем метки для всех магазинов и добавляем их в кластеризатор
-    stores.forEach(store => {
+    // Создаем метки только для фирменных магазинов (убираем партнёрские)
+    stores.filter(store => store.type === 'branded').forEach(store => {
         const placemark = createPlacemark(store);
         placemarks[store.id] = placemark;
 
@@ -253,7 +250,7 @@ async function initStoresMap() {
     // Настраиваем зум карты так, чтобы были видны все метки
     storesMap.setBounds(clusterer.getBounds(), {
         checkZoomRange: true,
-        zoomMargin: 30
+        zoomMargin: 50
     });
 
     // Функция для активации элемента магазина
@@ -307,14 +304,9 @@ async function initStoresMap() {
     // Фильтрация магазинов
     function filterStores() {
         // Получаем элементы фильтров динамически
-        const typeCheckboxes = document.querySelectorAll('.filter-option input[type="checkbox"][id^="type-"]');
         const locationCheckboxes = document.querySelectorAll('.filter-option input[type="checkbox"][id^="location-"]');
 
-        // Получаем выбранные типы магазинов и локации
-        const selectedTypes = Array.from(typeCheckboxes)
-            .filter(cb => cb.checked)
-            .map(cb => cb.value);
-
+        // Получаем выбранные локации (типы больше не фильтруем, так как остались только фирменные)
         const selectedLocations = Array.from(locationCheckboxes)
             .filter(cb => cb.checked)
             .map(cb => cb.value);
@@ -327,12 +319,11 @@ async function initStoresMap() {
             const itemType = item.dataset.type;
             const itemLocation = item.dataset.location;
 
-            // Проверяем, соответствует ли элемент выбранным фильтрам
-            const matchesType = selectedTypes.includes(itemType);
+            // Проверяем, соответствует ли элемент выбранным фильтрам (только по локации)
             const matchesLocation = selectedLocations.includes(itemLocation);
 
-            // Отображаем элемент, если он соответствует обоим фильтрам
-            if (matchesType && matchesLocation) {
+            // Отображаем элемент, если он соответствует фильтру локации
+            if (matchesLocation) {
                 item.style.display = 'block';
             } else {
                 item.style.display = 'none';
@@ -343,7 +334,7 @@ async function initStoresMap() {
         for (const store of stores) {
             const placemark = placemarks[store.id];
 
-            if (selectedTypes.includes(store.type) && selectedLocations.includes(store.location)) {
+            if (selectedLocations.includes(store.location)) {
                 placemark.options.set('visible', true);
             } else {
                 placemark.options.set('visible', false);
@@ -391,10 +382,10 @@ async function initStoresMap() {
             storesSidebar.classList.toggle('active');
             if (storesSidebar.classList.contains('active')) {
                 mobileStoresToggle.querySelector('.toggle-text').textContent = 'Скрыть список магазинов';
-                mobileStoresToggle.querySelector('.toggle-icon').textContent = '✕';
+                mobileStoresToggle.querySelector('.toggle-icon').textContent = '';
             } else {
                 mobileStoresToggle.querySelector('.toggle-text').textContent = 'Показать список магазинов';
-                mobileStoresToggle.querySelector('.toggle-icon').textContent = '📋';
+                mobileStoresToggle.querySelector('.toggle-icon').textContent = '';
             }
         });
     }
@@ -412,24 +403,13 @@ async function initStoresMap() {
                 const filter = btn.dataset.filter;
 
                 // Получаем элементы фильтров динамически
-                const typeCheckboxes = document.querySelectorAll('.filter-option input[type="checkbox"][id^="type-"]');
                 const locationCheckboxes = document.querySelectorAll('.filter-option input[type="checkbox"][id^="location-"]');
 
                 // Применяем фильтр
                 if (filter === 'all') {
-                    // Активируем все чекбоксы
-                    typeCheckboxes.forEach(cb => { cb.checked = true; });
-                    locationCheckboxes.forEach(cb => { cb.checked = true; });
-                } else if (filter === 'branded' || filter === 'partner') {
-                    // Активируем только выбранный тип
-                    typeCheckboxes.forEach(cb => {
-                        cb.checked = (cb.value === filter);
-                    });
                     // Активируем все локации
                     locationCheckboxes.forEach(cb => { cb.checked = true; });
                 } else {
-                    // Активируем все типы
-                    typeCheckboxes.forEach(cb => { cb.checked = true; });
                     // Активируем только выбранную локацию
                     locationCheckboxes.forEach(cb => {
                         cb.checked = (cb.value === filter);

@@ -99,7 +99,7 @@
   width: 100%;
   padding: 16px var(--spacing-md);
   border-radius: var(--radius-lg);
-  border: 2px solid var(--color-neutral-300);
+  border: 2px solid var(--color-secondary-light);
   background-color: var(--color-neutral-50);
   font-size: var(--font-size-base);
   transition: all var(--transition-normal) ease-in-out;
@@ -135,13 +135,26 @@ input:-webkit-autofill:active {
 
 /* Чекбоксы */
 .form-checkbox {
+  appearance: auto;
+  -webkit-appearance: auto;
+  width: 16px !important;
+  height: 16px !important;
+  min-width: 16px !important;
+  max-width: 16px !important;
+  border: none;
+  background: none;
   accent-color: var(--color-primary);
-  transform: scale(1.2);
-  margin-right: var(--spacing-sm);
+  transform: none;
+  margin: 0;
+  flex-shrink: 0;
+  box-sizing: border-box;
 }
 
 .form-consent {
   margin-top: -18px;
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
 }
 
 /* Подпись к чекбоксу */
@@ -210,12 +223,12 @@ form.no-validate input:invalid {
 
 .feedback__form input:required,
 .feedback__form textarea:required {
-  border-color: var(--color-neutral-300);
+  border-color: var(--color-secondary-light);
 }
 
 .feedback__form input.invalid,
 .feedback__form textarea.invalid {
-  border-color: var(--color-accent);
+  border-color: var(--color-error);
   background-color: #fff6f6;
 }
 
@@ -226,7 +239,7 @@ form.no-validate input:invalid {
 
 .feedback__form .input-error-message {
   font-size: var(--font-size-sm);
-  color: var(--color-accent);
+  color: var(--color-error);
   margin-top: var(--spacing-xs);
   display: block;
   animation: fadeIn 0.3s ease-in-out;
@@ -239,7 +252,7 @@ form.no-validate input:invalid {
 
 .feedback__form input.invalid,
 .feedback__form textarea.invalid {
-  border-color: var(--color-accent);
+  border-color: var(--color-error);
   background-color: #fff6f6;
 }
 
@@ -252,7 +265,7 @@ form.no-validate input:invalid {
 
 
 .feedback__form input[type="checkbox"].invalid {
-  outline: 2px solid var(--color-accent);
+  outline: 2px solid var(--color-error);
   outline-offset: 2px;
   border-radius: 8px; /* Скругление */
 }
