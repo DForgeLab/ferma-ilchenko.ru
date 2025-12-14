@@ -88,23 +88,45 @@ document.addEventListener('DOMContentLoaded', function () {
                 submitBtn.style.opacity = 1;  // Возвращаем полную непрозрачность
             }, 5000);
 
-            // === Отправка ===
-            fetch('php/send-email.php', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(data)
-            })
-                .then(response => {
-                    if (!response.ok) {
-                        // Обработка HTTP-ошибок (404, 500 и т.д.)
-                        throw new Error(`HTTP error! status: ${response.status}`);
-                    }
-                    return response.json(); // Преобразование в JSON
+            // === Отправка в Telegram и Email ===
+            Promise.all([
+                fetch('php/send.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(data)
+                }),
+                fetch('php/send-email.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(data)
                 })
-                .then(result => {
-                    // Показываем успех
+            ])
+                .then(responses => {
+                    // Проверяем оба ответа
+                    const telegramResponse = responses[0];
+                    const emailResponse = responses[1];
+
+                    if (!telegramResponse.ok || !emailResponse.ok) {
+                        throw new Error(`HTTP error! Telegram: ${telegramResponse.status}, Email: ${emailResponse.status}`);
+                    }
+
+                    // Преобразуем оба ответа в JSON
+                    return Promise.all([
+                        telegramResponse.json(),
+                        emailResponse.json()
+                    ]);
+                })
+                .then(results => {
+                    const telegramResult = results[0];
+                    const emailResult = results[1];
+
+                    // Проверяем, что хотя бы один из сервисов успешно отправил
+                    if (telegramResult.status === 'success' || emailResult.status === 'success') {
+                        // Показываем успех
                     const successMessage = document.createElement('div');
                     successMessage.className = 'form-message form-message--success';
                     successMessage.innerHTML = `
@@ -135,6 +157,10 @@ document.addEventListener('DOMContentLoaded', function () {
                             input.value = "";
                         }
                     });
+                    } else {
+                        // Оба сервиса не сработали
+                        throw new Error('Оба сервиса отправки недоступны');
+                    }
 
                 })
                 .catch(error => {

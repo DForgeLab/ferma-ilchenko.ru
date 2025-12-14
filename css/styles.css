@@ -189,6 +189,7 @@ ul, ol {
   height: 40px;
   flex-shrink: 0;
   color: var(--color-primary);
+  object-fit: contain;
 }
 
 .header__logo-text {
@@ -371,23 +372,22 @@ ul, ol {
 .mobile-nav__logo-icon {
   width: 40px;
   height: 40px;
-  background: linear-gradient(135deg, var(--color-primary), #4CAF50);
   border-radius: var(--radius-lg);
+  overflow: hidden;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: var(--color-primary);
 }
 
-.header__logo-icon svg,
-.mobile-nav__logo-icon svg {
+.mobile-nav__logo-icon img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.header__logo-icon svg {
   color: var(--color-primary);
   fill: var(--color-primary);
-}
-
-.mobile-nav__logo-icon svg {
-  width: 20px;
-  height: 20px;
 }
 
 .mobile-nav__brand {
