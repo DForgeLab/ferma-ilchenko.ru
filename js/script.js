@@ -1023,6 +1023,10 @@ class HeroSwiper {
                 enabled: true,
                 onlyInViewport: true,
             },
+            navigation: {
+                nextEl: '.swiper-button-next',
+                prevEl: '.swiper-button-prev',
+            },
             a11y: {
                 prevSlideMessage: 'Предыдущий слайд',
                 nextSlideMessage: 'Следующий слайд',
