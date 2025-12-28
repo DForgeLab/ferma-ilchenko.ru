@@ -1,0 +1,9 @@
+# Конфигурация email
+EMAIL_TO=your-email@example.com
+EMAIL_FROM=noreply@your-domain.ru
+EMAIL_REPLY_TO=info@your-domain.ru
+
+# Конфигурация Telegram
+TELEGRAM_BOT_TOKEN=your-bot-token-here
+TELEGRAM_CHAT_ID=your-chat-id-here
+TELEGRAM_TOPIC_ID=your-topic-id-here

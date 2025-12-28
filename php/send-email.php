@@ -1,6 +1,9 @@
 <?php
 header("Content-Type: application/json");
 
+// Загружаем переменные окружения
+include_once 'env-loader.php';
+
 // Получаем данные
 $data = json_decode(file_get_contents('php://input'), true);
 
@@ -34,7 +37,7 @@ $systemData = [
 ];
 
 // === Настройки Email ===
-$to = "webmasterd088@gmail.com"; // Email получателя - замените на нужный адрес
+$to = getenv('EMAIL_TO') ?: "webmasterd088@gmail.com"; // Email получателя из переменных окружения
 $subject = "Новая заявка с сайта Молочные Фермы Ильченко";
 
 // === Формируем HTML письмо ===
@@ -107,8 +110,10 @@ $message .= "</pre>
 // === Настройки заголовков ===
 $headers = "MIME-Version: 1.0" . "\r\n";
 $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
-$headers .= "From: Молочные Фермы Ильченко <noreply@ilchenko-farm.ru>" . "\r\n";
-$headers .= "Reply-To: info@ilchenko-farm.ru" . "\r\n";
+$emailFrom = getenv('EMAIL_FROM') ?: "noreply@ilchenko-farm.ru";
+$emailReplyTo = getenv('EMAIL_REPLY_TO') ?: "info@ilchenko-farm.ru";
+$headers .= "From: Молочные Фермы Ильченко <$emailFrom>" . "\r\n";
+$headers .= "Reply-To: $emailReplyTo" . "\r\n";
 
 // === Отправка Email ===
 $mailSent = mail($to, $subject, $message, $headers);

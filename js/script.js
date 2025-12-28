@@ -77,8 +77,6 @@ const Utils = {
 class Header {
   constructor() {
     this.header = document.querySelector('.header');
-    this.mobileToggle = document.querySelector('.header__mobile-toggle');
-    this.nav = document.querySelector('.header__nav');
     this.cartCount = document.querySelector('.cart__count');
     this.phoneButton = document.querySelector('.header__phone');
 
@@ -99,13 +97,6 @@ class Header {
     window.addEventListener('scroll', Utils.throttle(() => {
       this.handleScroll();
     }, 16)); // ~60fps
-
-    // Mobile menu toggle
-    if (this.mobileToggle) {
-      this.mobileToggle.addEventListener('click', () => {
-        this.toggleMobileMenu();
-      });
-    }
 
     // Phone button interaction
     if (this.phoneButton) {
@@ -162,43 +153,9 @@ class Header {
     this.handleScroll();
   }
 
-  toggleMobileMenu() {
-    const isOpen = this.nav.classList.contains('nav--open');
-
-    if (isOpen) {
-      this.closeMobileMenu();
-    } else {
-      this.openMobileMenu();
-    }
-  }
-
-  openMobileMenu() {
-    this.nav.classList.add('nav--open');
-    this.mobileToggle.classList.add('mobile-toggle--open');
-    document.body.style.overflow = 'hidden';
-
-    // Animate menu items
-    const navItems = this.nav.querySelectorAll('.nav__item');
-    navItems.forEach((item, index) => {
-      item.style.animationDelay = `${index * 0.1}s`;
-      item.classList.add('nav__item--animate');
-    });
-  }
-
-  closeMobileMenu() {
-    this.nav.classList.remove('nav--open');
-    this.mobileToggle.classList.remove('mobile-toggle--open');
-    document.body.style.overflow = '';
-
-    const navItems = this.nav.querySelectorAll('.nav__item');
-    navItems.forEach(item => {
-      item.classList.remove('nav__item--animate');
-      item.style.animationDelay = '';
-    });
-  }
 
   handlePhoneClick() {
-    const phoneNumber = '+7(861)234-56-78';
+    const phoneNumber = '+79282288505';
 
     // For mobile devices, initiate phone call
     if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
@@ -241,10 +198,7 @@ class Header {
   }
 
   handleResize() {
-    // Close mobile menu on resize to desktop
-    if (window.innerWidth > 768 && this.nav.classList.contains('nav--open')) {
-      this.closeMobileMenu();
-    }
+    // Handle resize events if needed
   }
 
   updateCartCount(count = 0) {
@@ -933,7 +887,7 @@ if (typeof module !== 'undefined' && module.exports) {
 // Mobile Navigation
 class MobileNavigation {
     constructor() {
-        this.mobileToggle = document.getElementById('mobile-toggle');
+        this.mobileToggle = document.querySelector('.header__mobile-toggle');
         this.mobileNav = document.getElementById('mobile-nav');
         this.mobileNavClose = document.getElementById('mobile-nav-close');
         this.mobileNavOverlay = document.getElementById('mobile-nav-overlay');
@@ -944,7 +898,7 @@ class MobileNavigation {
 
     init() {
         if (this.mobileToggle) {
-            this.mobileToggle.addEventListener('click', () => this.openMenu());
+            this.mobileToggle.addEventListener('click', () => this.toggleMenu());
         }
 
         if (this.mobileNavClose) {
@@ -971,14 +925,23 @@ class MobileNavigation {
 
         // Handle window resize
         window.addEventListener('resize', () => {
-            if (window.innerWidth > 768 && this.mobileNav.classList.contains('active')) {
+            if (window.innerWidth > 1024 && this.mobileNav.classList.contains('active')) {
                 this.closeMenu();
             }
         });
     }
 
+    toggleMenu() {
+        if (this.mobileNav.classList.contains('active')) {
+            this.closeMenu();
+        } else {
+            this.openMenu();
+        }
+    }
+
     openMenu() {
         this.mobileNav.classList.add('active');
+        this.mobileToggle.classList.add('mobile-toggle--open');
         document.body.style.overflow = 'hidden';
 
         // Focus trap
@@ -990,6 +953,7 @@ class MobileNavigation {
 
     closeMenu() {
         this.mobileNav.classList.remove('active');
+        this.mobileToggle.classList.remove('mobile-toggle--open');
         document.body.style.overflow = '';
 
         // Return focus to toggle button
@@ -1033,8 +997,45 @@ class SmoothScroll {
     }
 }
 
+// ==============================================
+// HERO SWIPER SLIDER (using Swiper.js)
+// ==============================================
+
+class HeroSwiper {
+    constructor() {
+        this.init();
+    }
+
+    init() {
+        const swiperElement = document.querySelector('.hero-swiper');
+        if (!swiperElement) return;
+
+        this.swiper = new Swiper('.hero-swiper', {
+            effect: "cards",
+            grabCursor: true,
+            loop: true,
+            autoplay: {
+                delay: 4000,
+                disableOnInteraction: false,
+                pauseOnMouseEnter: true,
+            },
+            keyboard: {
+                enabled: true,
+                onlyInViewport: true,
+            },
+            a11y: {
+                prevSlideMessage: 'Предыдущий слайд',
+                nextSlideMessage: 'Следующий слайд',
+                firstSlideMessage: 'Это первый слайд',
+                lastSlideMessage: 'Это последний слайд',
+            },
+        });
+    }
+}
+
 // Initialize Mobile Navigation and Smooth Scroll
 document.addEventListener('DOMContentLoaded', () => {
     new MobileNavigation();
     new SmoothScroll();
+    new HeroSwiper();
 });

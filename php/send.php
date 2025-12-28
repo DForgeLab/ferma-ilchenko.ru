@@ -1,6 +1,9 @@
 <?php
 header("Content-Type: application/json");
 
+// Загружаем переменные окружения
+include_once 'env-loader.php';
+
 // Получаем данные
 $data = json_decode(file_get_contents('php://input'), true);
 
@@ -35,9 +38,9 @@ $systemData = [
 ];
 
 // === Настройки Telegram ===
-$botToken = "7688961097:AAEiTlx4oKkUlczVLxobwACcWDbq-ZjFuk4"; // Ваш токен
-$chatId   = "-1002774919895"; // ID группы
-$topicId  = 2; // ID темы
+$botToken = getenv('TELEGRAM_BOT_TOKEN') ?: "7688961097:AAEiTlx4oKkUlczVLxobwACcWDbq-ZjFuk4"; // Токен из переменных окружения
+$chatId   = getenv('TELEGRAM_CHAT_ID') ?: "-1002774919895"; // ID группы из переменных окружения
+$topicId  = getenv('TELEGRAM_TOPIC_ID') ?: 2; // ID темы из переменных окружения
 
 // === Формируем текст сообщения ===
 $message = "📩 <b>Новая заявка с сайта</b>\n";
